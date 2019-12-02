@@ -1,9 +1,9 @@
-
 import 'dart:developer';
 
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_shop/bloc/auth_bloc.dart';
+import 'package:plant_shop/screens/home/home_screen.dart';
 
 class StaggerAnimation extends StatelessWidget {
   final AnimationController controller;
@@ -24,40 +24,48 @@ class StaggerAnimation extends StatelessWidget {
   final Animation<double> buttonZoomOut;
 
   Widget _buildAnimation(BuildContext context, Widget child) {
-        return Padding(
-          padding: EdgeInsets.only(bottom: 40),
-          child: InkWell(
-              onTap: () async {
-                await onSubmited();
-                if (authBloc.isLogged) {
-                  controller.forward();
-                } else {
-                 onError();
+    return Padding(
+      padding: EdgeInsets.only(bottom: 40),
+      child: InkWell(
+          onTap: () async {
+            controller.forward();
+            await onSubmited();
+            if (authBloc.isLogged) {
+              controller.forward();
+              controller.addStatusListener((status) {
+                if (status == AnimationStatus.completed) {
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => HomeScreen()));
                 }
-              },
-              child: Hero(
-                tag: 'fade',
-                child: buttonZoomOut.value <= 70
-                    ? Container(
-                        width: buttonSqueed.value,
-                        height: 60,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).accentColor,
-                          borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                        ),
-                        child: _buildInside(context))
-                    : Container(
-                        width: buttonZoomOut.value,
-                        height: buttonZoomOut.value,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).accentColor,
-                          shape: buttonZoomOut.value < 500
-                              ? BoxShape.circle
-                              : BoxShape.rectangle,
-                        )),
-              )),
-        );
+              });
+            } else {
+              controller.reverse(from: .2);
+              onError();
+            }
+          },
+          child: Hero(
+            tag: 'fade',
+            child: buttonZoomOut.value <= 70
+                ? Container(
+                    width: buttonSqueed.value,
+                    height: 60,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).accentColor,
+                      borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                    ),
+                    child: _buildInside(context))
+                : Container(
+                    width: buttonZoomOut.value,
+                    height: buttonZoomOut.value,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).accentColor,
+                      shape: buttonZoomOut.value < 500
+                          ? BoxShape.circle
+                          : BoxShape.rectangle,
+                    )),
+          )),
+    );
   }
 
   Widget _buildInside(BuildContext context) {
@@ -71,6 +79,9 @@ class StaggerAnimation extends StatelessWidget {
             letterSpacing: 0.3),
       );
     } else {
+      if (!authBloc.isLogged && controller.status != AnimationStatus.reverse) {
+        controller.stop();
+      }
       return CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
         strokeWidth: 2.2,

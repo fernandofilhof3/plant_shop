@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:plant_shop/bloc/auth_bloc.dart';
-import 'package:plant_shop/screens/home/home_screen.dart';
 import 'package:plant_shop/screens/login/widgets/form_container.dart';
 import 'package:plant_shop/screens/login/widgets/signup_button.dart';
 import 'package:plant_shop/screens/login/widgets/stagger_animation.dart';
@@ -18,6 +15,8 @@ class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  
+  AuthBloc get authBloc => BlocProvider.getBloc<AuthBloc>();
 
   String user;
   String password;
@@ -26,13 +25,7 @@ class _LoginScreenState extends State<LoginScreen>
   void initState() {
     super.initState();
     _controller = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 1500));
-    _controller.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => HomeScreen()));
-      }
-    });
+        vsync: this, duration: Duration(milliseconds: 1800));
   }
 
   @override
@@ -103,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen>
 
   void singIn() async{
     if (user != null && password != null) {
-      await BlocProvider.getBloc<AuthBloc>().doLogin(
+      await authBloc.doLogin(
         password: password,
         email: user
       );
@@ -118,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen>
         style: TextStyle(fontSize: 16, letterSpacing: .8),
       ),
       backgroundColor: Colors.redAccent,
-      duration: Duration(milliseconds: 1800),
+      duration: Duration(milliseconds: 2000),
     ));
   }
 }
