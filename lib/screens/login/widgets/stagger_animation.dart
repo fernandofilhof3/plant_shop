@@ -1,3 +1,6 @@
+
+import 'dart:developer';
+
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_shop/bloc/auth_bloc.dart';
@@ -5,8 +8,11 @@ import 'package:plant_shop/bloc/auth_bloc.dart';
 class StaggerAnimation extends StatelessWidget {
   final AnimationController controller;
   final Function onSubmited;
+  final Function onError;
 
-  StaggerAnimation({this.controller, this.onSubmited})
+  AuthBloc get authBloc => BlocProvider.getBloc<AuthBloc>();
+
+  StaggerAnimation({this.controller, this.onSubmited, this.onError})
       : buttonSqueed = Tween(begin: 320.0, end: 60.0).animate(
             CurvedAnimation(parent: controller, curve: Interval(0.0, 0.150))),
         buttonZoomOut = Tween(begin: 60.0, end: 1000.0).animate(CurvedAnimation(
@@ -18,17 +24,16 @@ class StaggerAnimation extends StatelessWidget {
   final Animation<double> buttonZoomOut;
 
   Widget _buildAnimation(BuildContext context, Widget child) {
-    return StreamBuilder(
-      stream: BlocProvider.getBloc<AuthBloc>().logged,
-      builder: (context, snapshot) {
         return Padding(
           padding: EdgeInsets.only(bottom: 40),
           child: InkWell(
-              onTap: () {
-                onSubmited();
-                // if (onSubmited()) {
-                //   controller.forward();
-                // }
+              onTap: () async {
+                await onSubmited();
+                if (authBloc.isLogged) {
+                  controller.forward();
+                } else {
+                 onError();
+                }
               },
               child: Hero(
                 tag: 'fade',
@@ -53,8 +58,6 @@ class StaggerAnimation extends StatelessWidget {
                         )),
               )),
         );
-      },
-    );
   }
 
   Widget _buildInside(BuildContext context) {

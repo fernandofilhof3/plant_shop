@@ -11,30 +11,29 @@ class AuthBloc implements BlocBase{
   final StreamController<Map<String, dynamic>> _authController = StreamController<Map<String, dynamic>>();
   Sink get logInn => _authController.sink;
 
-  final StreamController<bool> _loginController = StreamController<bool>.broadcast();
-  Stream get logged => _authController.stream;
+  bool _isLogged = false;
+  
+  bool get isLogged => _isLogged;
+
+  set isLogged(bool value){
+    _isLogged = value;
+    notifyListeners();
+  }
+
 
   AuthBloc(){
       authService = AuthService();
-    _authController.stream.listen(_logInn);
+    // _authController.stream.listen(_logInn);
   }
 
-   _logInn(Map<String, dynamic> credentials) async {
-    if (credentials != null) {
-      await authService.singIn(
-        email: credentials['email'],
-        pass: credentials['password'],
-        onFail: (){
-          log('Erro ao logar');
-          // return false;
-          }
+  Future doLogin({String email, String password}) async {
+    if (email != null && password != null) {
+     isLogged =  await authService.singIn(
+        email: email,
+        pass: password
       );
-      notifyListeners();
+      // _loginController.add(authService.islooged());
     }
-  }
-
-  _setLogin() {
-    _loginController.sink.add(authService.islooged());
   }
 
   @override
@@ -46,7 +45,6 @@ class AuthBloc implements BlocBase{
   void dispose() {
     // TODO: implement dispose
     _authController.close();
-    _loginController.close();
   }
 
   @override

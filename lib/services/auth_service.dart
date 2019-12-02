@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,22 +8,20 @@ class AuthService {
   
     FirebaseAuth _auth = FirebaseAuth.instance;
     FirebaseUser user;
-    bool logged;
 
     AuthResult fireBaseUser;
     Map<String, dynamic> userData = Map();
 
 
-     Future singIn({@required String email, @required String pass, @required VoidCallback onFail}) async{
-      _auth.signInWithEmailAndPassword(email: email, password: pass).then(
-        (user) async{
-          fireBaseUser = user;
-          // await _loadCurrentUser();
-          logged = true;
-        }
-      ).catchError((e){
-        onFail();
-      });
+     Future singIn({@required String email, @required String pass,}) async{
+      try {
+      var authResult = await _auth.signInWithEmailAndPassword(email: email, password: pass);
+      user = authResult.user;
+      return true;
+      } catch(e) {
+      log(e.toString());
+        return false;
+      }
     }
 
     Future<Null> _loadCurrentUser() async {
@@ -34,10 +34,6 @@ class AuthService {
           userData = docUser.data;
       }
     }
-  }
-
-  bool islooged() {
-    return logged;
   }
 
 }

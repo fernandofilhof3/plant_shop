@@ -17,8 +17,10 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
-   String user;
-   String password;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  String user;
+  String password;
 
   @override
   void initState() {
@@ -42,6 +44,7 @@ class _LoginScreenState extends State<LoginScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: Container(
         color: Colors.white70,
         child: ListView(
@@ -83,6 +86,7 @@ class _LoginScreenState extends State<LoginScreen>
                 StaggerAnimation(
                   controller: _controller.view,
                   onSubmited: singIn,
+                  onError: _onError,
                 )
               ],
             )
@@ -93,14 +97,28 @@ class _LoginScreenState extends State<LoginScreen>
   }
 
   void getEmailAndPassword(String email, String pass) {
-   user = email;
-   password = pass;
+    user = email;
+    password = pass;
   }
 
-  singIn() {
+  void singIn() async{
     if (user != null && password != null) {
-      BlocProvider.getBloc<AuthBloc>().logInn.add({'email': user, 'password': password});
+      await BlocProvider.getBloc<AuthBloc>().doLogin(
+        password: password,
+        email: user
+      );
     }
   }
 
+  void _onError() {
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      content: Text(
+        'Usuário ou senha inválidos',
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 16, letterSpacing: .8),
+      ),
+      backgroundColor: Colors.redAccent,
+      duration: Duration(milliseconds: 1800),
+    ));
+  }
 }
