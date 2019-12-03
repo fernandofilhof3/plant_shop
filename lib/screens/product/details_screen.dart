@@ -133,12 +133,16 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   SizedBox(
                                     height: 20,
                                   ),
+                                  Padding(
+                                    padding: EdgeInsets.only(bottom: 20),
+                                    child: 
                                   Text(
                                     _product.description,
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                         fontSize: 16, letterSpacing: 0.8),
                                   ),
+                                  )
                                 ],
                               )),
                         )
@@ -146,15 +150,19 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     ),
                     Positioned(
                         top: 80,
-                        right: 5,
+                        right: 0,
                         child: Hero(
                           tag: _heroTag,
-                          child: FadeInImage.memoryNetwork(
+                          child: Container(
+                            height: 320,
+                            width: 280,
+                            child: FadeInImage.memoryNetwork(
                             fadeInDuration: Duration(milliseconds: 700),
                             height: 320,
                             image: _product.image,
                             placeholder: kTransparentImage,
                           ),
+                          )
                         )),
                   ],
                 )),
