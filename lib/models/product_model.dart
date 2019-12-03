@@ -14,7 +14,7 @@ class Product {
     description = snapshot.data['description'];
     image = snapshot.data['image'];
     name = snapshot.data['name'];
-    price = snapshot.data['price'];
+    price = snapshot.data['price'].toDouble();
     size = snapshot.data['size'];
     requirements = snapshot.data['requirements'];
   }

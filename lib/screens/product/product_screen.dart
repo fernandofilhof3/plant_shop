@@ -1,7 +1,9 @@
 import 'dart:developer';
 
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:plant_shop/bloc/product_bloc.dart';
 import 'package:plant_shop/models/category_model.dart';
 import 'package:plant_shop/screens/product/widgets/category_button.dart';
 import 'package:plant_shop/screens/product/widgets/product_card.dart';
@@ -10,11 +12,14 @@ class ProductScreen extends StatelessWidget {
   final Category categoryProduct = new Category(id: 1, category: 'Tropical');
   final pvController = PageController(
     viewportFraction: 0.85,
+    keepPage: true,
   );
+    ProductBloc get productBloc => BlocProvider.getBloc<ProductBloc>();
+
   @override
   Widget build(BuildContext context) {
     double _screenHeight = MediaQuery.of(context).size.height;
-
+    // productBloc.search.add('top picks');
     return Container(
       margin: EdgeInsets.only(top: 15),
       child: Column(
@@ -30,19 +35,32 @@ class ProductScreen extends StatelessWidget {
           ),
           SizedBox(
             height: 32,
-            child: CategoryButton( categoryProduct, (categoryId) {
-                  log('Id: ${categoryId}');
-                }),
+            child: CategoryButton(categoryProduct, (categoryId) {
+              log('Id: ${categoryId}');
+            }),
           ),
           SizedBox(
             height: _screenHeight - 210,
-            child: PageView.builder(
-              controller: pvController,
-              itemBuilder: (context, position) {
-                return ProductCard(position: position);
+            child: StreamBuilder(
+              stream: BlocProvider.getBloc<ProductBloc>().getProduct,
+              initialData: [],
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                return PageView.builder(
+
+                  controller: pvController,
+                  itemBuilder: (context, index) {
+                    log('index: ' + index.toString());
+                    return ProductCard(
+                      position: index,
+                      product: snapshot.data[index],);
+                  },
+                  itemCount: snapshot.data.length,
+                );
+                } else {
+                  return null;
+                }
               },
-              itemCount: 4,
-              
             ),
           ),
         ],

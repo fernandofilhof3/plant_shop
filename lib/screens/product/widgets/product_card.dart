@@ -1,14 +1,16 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:plant_shop/models/product_model.dart';
 import 'package:plant_shop/screens/product/details_screen.dart';
 import 'package:plant_shop/shared/plant_status.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class ProductCard extends StatelessWidget {
   final int position;
+  final Product product;
 
-  ProductCard({@required this.position});
+  ProductCard({@required this.position, this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,10 @@ class ProductCard extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => DetailsScreen(heroTag: 'expand' + position.toString(),)));
+                    MaterialPageRoute(builder: (context) => DetailsScreen(
+                      heroTag: 'expand' + position.toString(),
+                      product: product
+                    )));
               },
               child: Container(
                   height: _screenHeight - 210,
@@ -46,7 +51,7 @@ class ProductCard extends StatelessWidget {
                                       fontSize: 18, color: Colors.white),
                                 ),
                                 Text(
-                                  '25',
+                                  product.price.toStringAsFixed(2),
                                   style: TextStyle(
                                       fontSize: 22,
                                       fontWeight: FontWeight.w500,
@@ -61,8 +66,7 @@ class ProductCard extends StatelessWidget {
                             child: FadeInImage.memoryNetwork(
                               fadeInDuration: Duration(milliseconds: 500),
                               height: 280,
-                              image:
-                                  'https://www.pngix.com/pngfile/big/274-2741335_indoors-tropical-plant-png-png-download-tropical-plant.png',
+                              image: product.image,
                               placeholder: kTransparentImage,
                             ),
                           ),
@@ -74,13 +78,13 @@ class ProductCard extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                'Outdoor',
+                                product.category,
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 16),
                                 textAlign: TextAlign.left,
                               ),
                               Text(
-                                'Tropical Plant',
+                                product.name,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,

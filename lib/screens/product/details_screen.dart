@@ -1,21 +1,28 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:plant_shop/models/product_model.dart';
 import 'package:plant_shop/screens/product/widgets/cart_button.dart';
 import 'package:plant_shop/shared/cart_info_button.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class DetailsScreen extends StatefulWidget {
   final String heroTag;
+  final Product product;
 
-  DetailsScreen({this.heroTag});
+
+  DetailsScreen({this.heroTag, this.product});
 
   @override
-  _DetailsScreenState createState() => _DetailsScreenState(heroTag);
+  _DetailsScreenState createState() => _DetailsScreenState(heroTag, product);
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
   final String _heroTag;
+  final Product _product;
 
-  _DetailsScreenState(this._heroTag);
+
+  _DetailsScreenState(this._heroTag, this._product);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +31,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          
           actions: <Widget>[
             CartInfoButton()
           ],
@@ -51,7 +57,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           color: Colors.white
                         ),
                         ),
-                        Text('Bananeira',
+                        Text(_product.name,
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -65,7 +71,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           color: Colors.white
                         ),
                         ),
-                        Text('R\$ 25',
+                        Text('R\$ ${_product.price.toStringAsFixed(2)}',
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w500,
@@ -79,7 +85,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           color: Colors.white
                         ),
                         ),
-                        Text('Média',
+                        Text(_product.size,
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w500,
@@ -117,7 +123,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           ),
                           ),
                           SizedBox(height: 20,),
-                          Text('Foi uma peleja sem tamanho para fazer esta tela, mas no final as coisas começaram a dar certo. Ta bonito pq o design foi outra pessoa que fez.',
+                          Text(_product.description,
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             fontSize: 16,
@@ -137,7 +143,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 child: FadeInImage.memoryNetwork(
                   fadeInDuration: Duration(milliseconds: 700),
                   height: 320,
-                  image: 'https://www.pngix.com/pngfile/big/274-2741335_indoors-tropical-plant-png-png-download-tropical-plant.png',
+                  image: _product.image,
                   placeholder: kTransparentImage,
                 ),
               )

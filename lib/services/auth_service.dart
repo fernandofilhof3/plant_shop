@@ -19,7 +19,6 @@ class AuthService {
       user = authResult.user;
       return true;
       } catch(e) {
-      log(e.toString());
         return false;
       }
     }
