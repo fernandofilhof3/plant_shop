@@ -50,7 +50,6 @@ class ProductScreen extends StatelessWidget {
 
                   controller: pvController,
                   itemBuilder: (context, index) {
-                    log('index: ' + index.toString());
                     return ProductCard(
                       position: index,
                       product: snapshot.data[index],);
