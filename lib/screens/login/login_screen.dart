@@ -108,10 +108,10 @@ class _LoginScreenState extends State<LoginScreen>
       content: Text(
         'Usuário ou senha inválidos',
         textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 16, letterSpacing: .8),
+        style: TextStyle(fontSize: 18, letterSpacing: .8, fontWeight: FontWeight.bold),
       ),
       backgroundColor: Colors.redAccent,
-      duration: Duration(milliseconds: 2000),
+      duration: Duration(milliseconds: 2200),
     ));
   }
 }

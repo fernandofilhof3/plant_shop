@@ -20,7 +20,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: 'Montserrat',
           primaryColor: Color.fromRGBO(34, 135, 77, 1),
-          accentColor: Color.fromRGBO(40, 156, 67, 1)
+          accentColor: Color.fromRGBO(40, 156, 67, 1),
+          primaryColorDark: Color.fromRGBO(27, 108, 62, 1)
           ),
       ),
     );
