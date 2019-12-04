@@ -1,25 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:plant_shop/shared/size_config.dart';
 
-class FormContainer extends StatelessWidget {
-  final _formkey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-
-  bool _invalidEmail = false;
-  bool _invalidPassword = false;
-
+class FormContainer extends StatefulWidget {
   final Function getCredentials;
   final Function getPassword;
 
   FormContainer({this.getCredentials, this.getPassword});
 
   @override
+  _FormContainerState createState() => _FormContainerState();
+}
+
+class _FormContainerState extends State<FormContainer> {
+  final _formkey = GlobalKey<FormState>();
+
+  final _emailController = TextEditingController();
+
+  final _passwordController = TextEditingController();
+
+  bool _invalidEmail = false;
+
+  bool _invalidPassword = false;
+
+  @override
   Widget build(BuildContext context) {
+  SizeConfig().init(context);
+
     return Container(
+      width: SizeConfig.safeBlockHorizontal * 80,
+      height: SizeConfig.safeBlockVertical * 55,
       margin: EdgeInsets.symmetric(horizontal: 40),
+      alignment: AlignmentDirectional.center,
       child: Form(
         key: _formkey,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TextFormField(
               controller: _emailController,
@@ -53,13 +68,11 @@ class FormContainer extends StatelessWidget {
               },
               onFieldSubmitted: (email) {
                 if (_formkey.currentState.validate())
-                  getCredentials(
+                  widget.getCredentials(
                       _emailController.text, _passwordController.text);
               },
             ),
-            SizedBox(
-              height: 25,
-            ),
+            SizedBox(height: 25,),
             TextFormField(
               controller: _passwordController,
               style: TextStyle(
@@ -97,7 +110,7 @@ class FormContainer extends StatelessWidget {
               },
               onFieldSubmitted: (password) {
                 if (_formkey.currentState.validate())
-                  getCredentials(
+                  widget.getCredentials(
                       _emailController.text, _passwordController.text);
               },
             ),

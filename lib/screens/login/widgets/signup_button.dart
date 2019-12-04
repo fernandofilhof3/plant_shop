@@ -4,7 +4,6 @@ class SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlatButton(
-      padding: EdgeInsets.only(top: 180),
       onPressed: () {},
       child: Text(
         'Não possui uma conta? Cadastre-se',

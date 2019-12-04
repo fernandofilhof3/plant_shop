@@ -2,6 +2,7 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_shop/bloc/auth_bloc.dart';
 import 'package:plant_shop/screens/home/home_screen.dart';
+import 'package:plant_shop/shared/size_config.dart';
 
 class StaggerAnimation extends StatelessWidget {
   final AnimationController controller;
@@ -11,7 +12,7 @@ class StaggerAnimation extends StatelessWidget {
   AuthBloc get authBloc => BlocProvider.getBloc<AuthBloc>();
 
   StaggerAnimation({this.controller, this.onSubmited, this.onError})
-      : buttonSqueed = Tween(begin: 320.0, end: 60.0).animate(
+      : buttonSqueed = Tween(begin: SizeConfig.safeBlockHorizontal * 80, end: 60.0).animate(
             CurvedAnimation(parent: controller, curve: Interval(0.0, 0.150))),
         buttonZoomOut = Tween(begin: 60.0, end: 1000.0).animate(CurvedAnimation(
           parent: controller,
@@ -22,8 +23,9 @@ class StaggerAnimation extends StatelessWidget {
   final Animation<double> buttonZoomOut;
 
   Widget _buildAnimation(BuildContext context, Widget child) {
+    SizeConfig().init(context);
     return Padding(
-      padding: EdgeInsets.only(bottom: 40),
+      padding: EdgeInsets.only(bottom: 0),
       child: InkWell(
           onTap: () async {
             controller.forward();

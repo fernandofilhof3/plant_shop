@@ -6,6 +6,7 @@ import 'package:plant_shop/bloc/product_bloc.dart';
 import 'package:plant_shop/screens/login/widgets/form_container.dart';
 import 'package:plant_shop/screens/login/widgets/signup_button.dart';
 import 'package:plant_shop/screens/login/widgets/stagger_animation.dart';
+import 'package:plant_shop/shared/size_config.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -16,7 +17,7 @@ class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  
+
   AuthBloc get authBloc => BlocProvider.getBloc<AuthBloc>();
 
   String user;
@@ -27,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen>
     super.initState();
     _controller = AnimationController(
         vsync: this, duration: Duration(milliseconds: 1800));
-        BlocProvider.getBloc<ProductBloc>().search.add('');
+    BlocProvider.getBloc<ProductBloc>().search.add('');
   }
 
   @override
@@ -38,57 +39,53 @@ class _LoginScreenState extends State<LoginScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    SizeConfig().init(context);
+
+    return SafeArea(
+        child: Scaffold(
       key: _scaffoldKey,
       body: Container(
-        color: Colors.white70,
+        width: SizeConfig.safeBlockHorizontal * 100,
+        height: SizeConfig.safeBlockVertical * 100,
+        // color: Colors.blue[300],
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            Stack(
-              alignment: Alignment.bottomCenter,
+            Column(
               children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    Padding(
-                        padding: EdgeInsets.only(top: 70, bottom: 15),
-                        child: SvgPicture.asset(
-                          'images/leaves.svg',
-                          semanticsLabel: 'Botanicah',
-                          width: 120,
-                          height: 120,
-                        )),
-                    Text(
-                      'Plant Shop',
-                      style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.w500,
-                          color: Theme.of(context).accentColor),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 60),
-                      child: Column(
-                        children: <Widget>[
-                          FormContainer(
-                            getCredentials: getEmailAndPassword,
-                          ),
-                          SignUpButton(),
-                        ],
-                      ),
-                    )
-                  ],
+                Container(
+                  margin: EdgeInsets.only(top: 20, bottom: 10),
+                  height: SizeConfig.safeBlockHorizontal * 20,
+                  // color: Colors.yellow,
+                  child: SvgPicture.asset(
+                    'images/leaves.svg',
+                    semanticsLabel: 'Botanicah',
+                    width: 120,
+                    height: 120,
+                  ),
+                ),
+                Text(
+                  'Plant Shop',
+                  style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.w500,
+                      color: Theme.of(context).accentColor),
+                ),
+                FormContainer(
+                  getCredentials: getEmailAndPassword,
                 ),
                 StaggerAnimation(
                   controller: _controller.view,
                   onSubmited: singIn,
                   onError: _onError,
-                )
+                ),
+                SignUpButton(),
               ],
-            )
+            ),
           ],
         ),
       ),
-    );
+    ));
   }
 
   void getEmailAndPassword(String email, String pass) {
@@ -96,12 +93,9 @@ class _LoginScreenState extends State<LoginScreen>
     password = pass;
   }
 
-  void singIn() async{
+  void singIn() async {
     if (user != null && password != null) {
-      await authBloc.doLogin(
-        password: password,
-        email: user
-      );
+      await authBloc.doLogin(password: password, email: user);
     }
   }
 
@@ -110,7 +104,8 @@ class _LoginScreenState extends State<LoginScreen>
       content: Text(
         'Usuário ou senha inválidos',
         textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 18, letterSpacing: .8, fontWeight: FontWeight.bold),
+        style: TextStyle(
+            fontSize: 18, letterSpacing: .8, fontWeight: FontWeight.bold),
       ),
       backgroundColor: Colors.redAccent,
       duration: Duration(milliseconds: 2200),

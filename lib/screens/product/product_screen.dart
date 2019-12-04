@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:plant_shop/bloc/product_bloc.dart';
-import 'package:plant_shop/models/category_model.dart';
 import 'package:plant_shop/screens/product/widgets/category_button.dart';
 import 'package:plant_shop/screens/product/widgets/product_card.dart';
 

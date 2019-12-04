@@ -1,8 +1,8 @@
-final List<String> categories_enum = [
+final List<String> categoriesEnum = [
+  'Todas',
   'Top Picks',
   'Interior',
   'Exterior',
   'Tropical',
   'Medicinais'
 ];
-
