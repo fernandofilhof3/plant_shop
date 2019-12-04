@@ -9,17 +9,15 @@ import 'package:plant_shop/screens/product/widgets/category_button.dart';
 import 'package:plant_shop/screens/product/widgets/product_card.dart';
 
 class ProductScreen extends StatelessWidget {
-  final Category categoryProduct = new Category(id: 1, category: 'Tropical');
   final pvController = PageController(
     viewportFraction: 0.85,
     keepPage: true,
   );
-    ProductBloc get productBloc => BlocProvider.getBloc<ProductBloc>();
+  ProductBloc get productBloc => BlocProvider.getBloc<ProductBloc>();
 
   @override
   Widget build(BuildContext context) {
     double _screenHeight = MediaQuery.of(context).size.height;
-    // productBloc.search.add('top picks');
     return Container(
       margin: EdgeInsets.only(top: 15),
       child: Column(
@@ -33,12 +31,7 @@ class ProductScreen extends StatelessWidget {
               style: TextStyle(fontSize: 32, fontWeight: FontWeight.w500),
             ),
           ),
-          SizedBox(
-            height: 32,
-            child: CategoryButton(categoryProduct, (categoryId) {
-              log('Id: ${categoryId}');
-            }),
-          ),
+          SizedBox(height: 32, child: CategoryButton()),
           SizedBox(
             height: _screenHeight - 210,
             child: StreamBuilder(
@@ -46,16 +39,16 @@ class ProductScreen extends StatelessWidget {
               initialData: [],
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                return PageView.builder(
-
-                  controller: pvController,
-                  itemBuilder: (context, index) {
-                    return ProductCard(
-                      position: index,
-                      product: snapshot.data[index],);
-                  },
-                  itemCount: snapshot.data.length,
-                );
+                  return PageView.builder(
+                    controller: pvController,
+                    itemBuilder: (context, index) {
+                      return ProductCard(
+                        position: index,
+                        product: snapshot.data[index],
+                      );
+                    },
+                    itemCount: snapshot.data.length,
+                  );
                 } else {
                   return null;
                 }

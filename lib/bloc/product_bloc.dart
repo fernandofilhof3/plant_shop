@@ -18,7 +18,7 @@ class ProductBloc implements BlocBase {
 
   ProductBloc(){
     plantService = PlantService();
-    _searchController.stream.listen(_getProducts);
+    _searchController.stream.listen(_getProductsByCategory);
   }
 
    _getProducts(type) async{
@@ -27,7 +27,11 @@ class ProductBloc implements BlocBase {
        products = await plantService.getProducts(type);
         _productController.sink.add(products);
      }
-    // _productController.sink.add(products);
+  }
+   _getProductsByCategory(category) async{
+       _productController.sink.add([]);
+       products = await plantService.getProductsByCategory(category);
+        _productController.sink.add(products);
   }
 
   @override
@@ -39,6 +43,7 @@ class ProductBloc implements BlocBase {
   void dispose() {
     // TODO: implement dispose
     _productController.close();
+    _searchController.close();
   }
 
   @override

@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen>
     super.initState();
     _controller = AnimationController(
         vsync: this, duration: Duration(milliseconds: 1800));
-        BlocProvider.getBloc<ProductBloc>().search.add('top picks');
+        BlocProvider.getBloc<ProductBloc>().search.add('');
   }
 
   @override

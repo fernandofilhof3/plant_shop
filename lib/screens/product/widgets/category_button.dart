@@ -1,19 +1,17 @@
+import 'dart:developer';
+
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
-import 'package:plant_shop/models/category_model.dart';
+import 'package:plant_shop/bloc/product_bloc.dart';
+import 'package:plant_shop/screens/product/enums/categories_enum.dart';
 
 class CategoryButton extends StatefulWidget {
-  final Category category;
-  final Function onTap;
-
-  CategoryButton(this.category, this.onTap);
 
   @override
   _CategoryButtonState createState() => _CategoryButtonState();
 }
 
 class _CategoryButtonState extends State<CategoryButton> {
-  Category get _category => widget.category;
-  Function get _onTap => widget.onTap;
   int _selected = 0;
 
   @override
@@ -26,22 +24,23 @@ class _CategoryButtonState extends State<CategoryButton> {
           mainAxisSpacing: 10,
           childAspectRatio: .2,
         ),
-        itemCount: 5,
+        itemCount: categories_enum.length,
         itemBuilder: (context, index) => FlatButton(
               onPressed: () {
                 setState(() {
                   _selected = index;
                 });
-                _onTap(_category.id);
+                BlocProvider.getBloc<ProductBloc>().search.add(categories_enum[index]);
               },
               child: Text(
-                _category.category,
+                categories_enum[index],
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontSize: _selected == index ? 16 : 15,
+                    fontSize: _selected == index ? 15 : 14,
                     fontWeight: _selected == index ? FontWeight.bold : null,
                     color: _selected == index ? Colors.black : Colors.grey),
               ),
-            ));
+            )
+            );
   }
 }
