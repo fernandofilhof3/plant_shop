@@ -47,41 +47,50 @@ class _LoginScreenState extends State<LoginScreen>
       body: Container(
         width: SizeConfig.safeBlockHorizontal * 100,
         height: SizeConfig.safeBlockVertical * 100,
-        // color: Colors.blue[300],
         child: ListView(
-          padding: EdgeInsets.zero,
           children: <Widget>[
-            Column(
+            Stack(
+              alignment: AlignmentDirectional.bottomCenter,
               children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(top: 20, bottom: 10),
-                  height: SizeConfig.safeBlockHorizontal * 20,
-                  // color: Colors.yellow,
-                  child: SvgPicture.asset(
-                    'images/leaves.svg',
-                    semanticsLabel: 'Botanicah',
-                    width: 120,
-                    height: 120,
+                Column(
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.only(top: 20, bottom: 10),
+                      height: SizeConfig.safeBlockHorizontal * 20,
+                      child: SvgPicture.asset(
+                        'images/leaves.svg',
+                        semanticsLabel: 'Botanicah',
+                        width: 120,
+                        height: 120,
+                      ),
+                    ),
+                    Text(
+                      'Plant Shop',
+                      style: TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).accentColor),
+                    ),
+                    FormContainer(
+                      getCredentials: getEmailAndPassword,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: SizeConfig.safeBlockVertical * 5),
+                      child: SignUpButton(),
+                    )
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 50),
+                  child: StaggerAnimation(
+                    controller: _controller.view,
+                    onSubmited: singIn,
+                    onError: _onError,
                   ),
                 ),
-                Text(
-                  'Plant Shop',
-                  style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.w500,
-                      color: Theme.of(context).accentColor),
-                ),
-                FormContainer(
-                  getCredentials: getEmailAndPassword,
-                ),
-                StaggerAnimation(
-                  controller: _controller.view,
-                  onSubmited: singIn,
-                  onError: _onError,
-                ),
-                SignUpButton(),
               ],
-            ),
+            )
           ],
         ),
       ),
