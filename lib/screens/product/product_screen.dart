@@ -16,7 +16,8 @@ class ProductScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double _screenHeight = MediaQuery.of(context).size.height;
     return Container(
-      margin: EdgeInsets.only(top: 15),
+      color: Colors.lightBlue[200],
+      margin: EdgeInsets.only(top: 10),
       child: Column(
         children: <Widget>[
           Container(
