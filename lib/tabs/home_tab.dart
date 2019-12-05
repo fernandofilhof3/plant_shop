@@ -42,6 +42,7 @@ class HomeTab extends StatelessWidget {
                     color: Colors.grey[100]
                   ),
                   child: MaterialButton(
+                    height: 48,
                     padding: EdgeInsets.all(1),
                     shape: CircleBorder(side: BorderSide(
                       color: Colors.transparent
