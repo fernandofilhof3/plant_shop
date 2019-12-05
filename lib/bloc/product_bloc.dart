@@ -29,7 +29,7 @@ class ProductBloc implements BlocBase {
      }
   }
    _getProductsByCategory(category) async{
-       _productController.sink.add([]);
+       _productController.sink.add(null);
        products = await plantService.getProductsByCategory(category);
         _productController.sink.add(products);
   }

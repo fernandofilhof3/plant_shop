@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:plant_shop/bloc/product_bloc.dart';
 import 'package:plant_shop/screens/product/widgets/category_button.dart';
 import 'package:plant_shop/screens/product/widgets/product_card.dart';
+import 'package:plant_shop/shared/size_config.dart';
 
 class ProductScreen extends StatelessWidget {
   final pvController = PageController(
@@ -14,9 +15,10 @@ class ProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double _screenHeight = MediaQuery.of(context).size.height;
+    SizeConfig().init(context);
     return Container(
-      color: Colors.lightBlue[200],
+      width: SizeConfig.safeBlockHorizontal * 100,
+      height: SizeConfig.safeBlockVertical * 100,
       margin: EdgeInsets.only(top: 10),
       child: Column(
         children: <Widget>[
@@ -30,8 +32,9 @@ class ProductScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: 32, child: CategoryButton()),
-          SizedBox(
-            height: _screenHeight - 210,
+          Container(
+            width: SizeConfig.safeBlockHorizontal * 100,
+            height: SizeConfig.safeBlockVertical * 70,
             child: StreamBuilder(
               stream: BlocProvider.getBloc<ProductBloc>().getProduct,
               initialData: [],
@@ -48,7 +51,16 @@ class ProductScreen extends StatelessWidget {
                     itemCount: snapshot.data.length,
                   );
                 } else {
-                  return null;
+                  return Container(
+                    margin: EdgeInsets.fromLTRB(
+                      SizeConfig.safeBlockHorizontal * 40,
+                      SizeConfig.safeBlockVertical * 29,
+                      SizeConfig.safeBlockHorizontal * 40,
+                      SizeConfig.safeBlockVertical * 29),
+                      child:CircularProgressIndicator(
+                        strokeWidth: 3.5,
+                      )
+                  );
                 }
               },
             ),
