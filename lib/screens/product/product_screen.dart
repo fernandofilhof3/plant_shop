@@ -42,7 +42,7 @@ class ProductScreen extends StatelessWidget {
               stream: BlocProvider.getBloc<ProductBloc>().getProduct,
               initialData: [],
               builder: (context, snapshot) {
-                if (!snapshot.hasData) {
+                if (snapshot.hasData) {
                   if (snapshot.data.length > 0) {
                     return PageView.builder(
                       controller: pvController,
