@@ -1,9 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:plant_shop/models/product_model.dart';
 import 'package:plant_shop/screens/product/details_screen.dart';
 import 'package:plant_shop/shared/plant_status.dart';
+import 'package:plant_shop/shared/size_config.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class ProductCard extends StatelessWidget {
@@ -14,8 +13,7 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double _screenWidth = MediaQuery.of(context).size.width;
-    double _screenHeight = MediaQuery.of(context).size.height;
+    SizeConfig().init(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -28,17 +26,19 @@ class ProductCard extends StatelessWidget {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => DetailsScreen(
                       heroTag: 'expand' + position.toString(),
-                      product: product
+                      product: product,
+                      heroHeight: SizeConfig.safeBlockVertical * 50,
+                      heroWidth: SizeConfig.safeBlockHorizontal * 68,
                     )));
               },
               child: Container(
-                  height: _screenHeight - 210,
-                  width: _screenWidth - 90,
+                  height: SizeConfig.safeBlockVertical * 80,
+                  width: SizeConfig.safeBlockHorizontal * 80,
                   decoration: BoxDecoration(
                       color: Theme.of(context).accentColor,
                       borderRadius: BorderRadius.all(Radius.circular(20))),
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(20, 20, 20, 15),
+                    padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
                     child: Column(
                       children: <Widget>[
                         Container(
@@ -61,12 +61,12 @@ class ProductCard extends StatelessWidget {
                             )),
                         Hero(
                           tag: 'expand' + position.toString(),
-                          child: Container(
-                            // margin: EdgeInsets.only(top: 10),
+                          child: SizedBox(
+                            height: SizeConfig.safeBlockVertical * 41,
                             child: FadeInImage.memoryNetwork(
                               fadeInDuration: Duration(milliseconds: 500),
-                              height: 280,
                               image: product.image,
+                              height: 280,
                               placeholder: kTransparentImage,
                             ),
                           ),

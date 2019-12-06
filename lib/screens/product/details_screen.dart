@@ -2,26 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:plant_shop/models/product_model.dart';
 import 'package:plant_shop/screens/product/widgets/cart_button.dart';
 import 'package:plant_shop/shared/cart_info_button.dart';
+import 'package:plant_shop/shared/size_config.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class DetailsScreen extends StatefulWidget {
   final String heroTag;
   final Product product;
+  final double heroHeight;
+  final double heroWidth;
 
-  DetailsScreen({this.heroTag, this.product});
+  DetailsScreen({this.heroTag, this.product, this.heroHeight, this.heroWidth});
 
   @override
-  _DetailsScreenState createState() => _DetailsScreenState(heroTag, product);
+  _DetailsScreenState createState() => _DetailsScreenState(heroTag, product, heroHeight, heroWidth);
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
   final String _heroTag;
   final Product _product;
+  final double _heroHeight;
+  final double _heroWidth;
 
-  _DetailsScreenState(this._heroTag, this._product);
+
+  _DetailsScreenState(this._heroTag, this._product, this._heroHeight, this._heroWidth);
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    
     double _screenHeight = MediaQuery.of(context).size.height;
     double _screenWidth = MediaQuery.of(context).size.width;
 
@@ -111,9 +119,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         Flexible(
                           fit: FlexFit.loose,
                           child: Container(
-                              width: _screenWidth,
+                              width: SizeConfig.safeBlockHorizontal * 100,
                               padding:
-                                  EdgeInsets.only(left: 20, right: 20, top: 45),
+                                  EdgeInsets.only(left: 20, right: 20, top: 50),
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.only(
@@ -149,16 +157,16 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       ],
                     ),
                     Positioned(
-                        top: 80,
+                        top: 35,
                         right: 0,
                         child: Hero(
                           tag: _heroTag,
                           child: Container(
-                            height: 320,
-                            width: 280,
+                            alignment: AlignmentDirectional.bottomCenter,
+                            height: _heroHeight,
+                            width: _heroWidth,
                             child: FadeInImage.memoryNetwork(
-                            fadeInDuration: Duration(milliseconds: 700),
-                            height: 320,
+                            fadeInDuration: Duration(milliseconds: 500),
                             image: _product.image,
                             placeholder: kTransparentImage,
                           ),
