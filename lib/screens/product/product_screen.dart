@@ -42,7 +42,7 @@ class ProductScreen extends StatelessWidget {
               stream: BlocProvider.getBloc<ProductBloc>().getProduct,
               initialData: [],
               builder: (context, snapshot) {
-                if (snapshot.hasData) {
+                if (!snapshot.hasData) {
                   if (snapshot.data.length > 0) {
                     return PageView.builder(
                       controller: pvController,
@@ -62,14 +62,10 @@ class ProductScreen extends StatelessWidget {
                   }
                 } else {
                   return Container(
-                      margin: EdgeInsets.fromLTRB(
-                          SizeConfig.safeBlockHorizontal * 35,
-                          SizeConfig.safeBlockHorizontal * 43,
-                          SizeConfig.safeBlockHorizontal * 35,
-                          SizeConfig.safeBlockHorizontal * 43),
+                      margin: EdgeInsets.fromLTRB(150, 180, 150, 180),
                       child: CircularProgressIndicator(
-                        strokeWidth: 4,
-                      ));
+                      )
+                      );
                 }
               },
             ),
