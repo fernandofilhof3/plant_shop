@@ -63,12 +63,12 @@ class ProductScreen extends StatelessWidget {
                 } else {
                   return Container(
                       margin: EdgeInsets.fromLTRB(
-                          SizeConfig.safeBlockHorizontal * 40,
-                          SizeConfig.safeBlockVertical * 29,
-                          SizeConfig.safeBlockHorizontal * 40,
-                          SizeConfig.safeBlockVertical * 29),
+                          SizeConfig.safeBlockHorizontal * 35,
+                          SizeConfig.safeBlockHorizontal * 43,
+                          SizeConfig.safeBlockHorizontal * 35,
+                          SizeConfig.safeBlockHorizontal * 43),
                       child: CircularProgressIndicator(
-                        strokeWidth: 3.5,
+                        strokeWidth: 4,
                       ));
                 }
               },
