@@ -29,10 +29,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    
-    double _screenHeight = MediaQuery.of(context).size.height;
-    double _screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
         appBar: AppBar(
           actions: <Widget>[CartInfoButton()],
@@ -120,7 +116,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           fit: FlexFit.loose,
                           child: Container(
                               width: SizeConfig.safeBlockHorizontal * 100,
-                              height: SizeConfig.safeBlockVertical * 50,
+                              height: SizeConfig.safeBlockVertical * 65,
                               padding:
                                   EdgeInsets.only(left: 20, right: 20, top: 50),
                               decoration: BoxDecoration(
@@ -143,7 +139,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     height: 20,
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.only(bottom: 20),
+                                    padding: EdgeInsets.only(bottom: 0),
                                     child: 
                                   Text(
                                     _product.description,

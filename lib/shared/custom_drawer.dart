@@ -66,21 +66,16 @@ class CustomDrawer extends StatelessWidget {
               ),
               DrawerTile(
                 controller: pageController,
-                icon: Icons.home,
                 page: 0,
                 text: 'Inicio',
+                image: 'images/home_3.svg',
               ),
               DrawerTile(
                 controller: pageController,
                 icon: Icons.shopping_basket,
                 page: 1,
-                text: 'Inicio',
-              ),
-              DrawerTile(
-                controller: pageController,
-                icon: Icons.info_outline,
-                page: 2,
-                text: 'Sobre',
+                text: 'Pedidos',
+                image: 'images/shipped.svg',
               ),
             ],
           )
