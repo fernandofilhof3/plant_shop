@@ -57,15 +57,22 @@ class ProductScreen extends StatelessWidget {
                   } else {
                     log('else');
                     return EmptyView(
-                      msg: 'Desculpe, não encontramos nenhum produto para esta cartegoria :(',
+                      msg:
+                          'Desculpe, não encontramos nenhum produto para esta cartegoria :(',
                     );
                   }
                 } else {
-                  return Container(
-                      margin: EdgeInsets.fromLTRB(150, 180, 150, 180),
-                      child: CircularProgressIndicator(
-                      )
-                      );
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      SizedBox(
+                        width: SizeConfig.safeBlockHorizontal * 30,
+                        height: SizeConfig.safeBlockHorizontal * 30,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 3,
+                        )),
+                    ]
+                  );
                 }
               },
             ),
