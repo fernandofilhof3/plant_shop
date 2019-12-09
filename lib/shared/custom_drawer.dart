@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_shop/tiles/drawer_tile.dart';
 
@@ -25,35 +26,38 @@ class CustomDrawer extends StatelessWidget {
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(top: 5, bottom: 15),
-                    width: 120,
-                    height: 120,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Theme.of(context).accentColor, width: 1.4),
-                      image: DecorationImage(
-                        image: NetworkImage(
-                            'https://pm1.narvii.com/5813/1394b1fc338ec4bd679d2148290804592aed009f_hq.jpg'),
-                            // 'https://cdn.dribbble.com/users/877246/screenshots/5902366/girl_2x.png'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                  CachedNetworkImage(
+                    imageUrl: 'https://cdn.dribbble.com/users/877246/screenshots/5902366/girl_2x.png',
+                    imageBuilder: (context, imageProvider) {
+                      return Container(
+                        height: 120,
+                        width: 120,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Theme.of(context).accentColor, width: 1.6),
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover
+                          )
+                        ),
+                      );
+                    },
+                    placeholder: (context, url) => Center(child: CircularProgressIndicator(strokeWidth: 3,),),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
                         'Olá, ',
-                        style: TextStyle(fontSize: 18,
-                        color: Theme.of(context).accentColor ),
+                        style: TextStyle(
+                            fontSize: 20, color: Theme.of(context).accentColor),
                       ),
                       Text(
                         userName + '.',
                         style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 22,
                             fontWeight: FontWeight.w500,
-                            color: Theme.of(context).accentColor ),
+                            color: Theme.of(context).accentColor),
                       )
                     ],
                   ),
@@ -61,14 +65,13 @@ class CustomDrawer extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.only(top: 10, right: 30, bottom: 10),
-                child: Divider(
-                  color: Theme.of(context).primaryColor),
+                child: Divider(color: Theme.of(context).primaryColor),
               ),
               DrawerTile(
                 controller: pageController,
                 page: 0,
                 text: 'Inicio',
-                image: 'images/home_3.svg',
+                image: 'images/home.svg',
               ),
               DrawerTile(
                 controller: pageController,

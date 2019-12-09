@@ -32,6 +32,8 @@ dependencies:
   rxdart: ^0.22.6
   flutter_svg: ^0.14.4
   transparent_image: ^1.0.0
+  cached_network_image: ^1.1.3
+
 
 
 
