@@ -54,8 +54,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Container(
-                            height: _screenHeight * 0.5,
-                            width: _screenWidth,
+                            height: SizeConfig.safeBlockVertical * 50,
+                            width: SizeConfig.safeBlockHorizontal * 100,
                             padding: EdgeInsets.only(left: 20, right: 20),
                             color: Theme.of(context).accentColor,
                             child: Column(
@@ -120,6 +120,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           fit: FlexFit.loose,
                           child: Container(
                               width: SizeConfig.safeBlockHorizontal * 100,
+                              height: SizeConfig.safeBlockVertical * 50,
                               padding:
                                   EdgeInsets.only(left: 20, right: 20, top: 50),
                               decoration: BoxDecoration(
@@ -157,7 +158,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       ],
                     ),
                     Positioned(
-                        top: 35,
+                        top: 45,
                         right: 0,
                         child: Hero(
                           tag: _heroTag,

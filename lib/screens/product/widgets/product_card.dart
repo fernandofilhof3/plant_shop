@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:plant_shop/models/product_model.dart';
 import 'package:plant_shop/screens/product/details_screen.dart';
@@ -38,8 +40,9 @@ class ProductCard extends StatelessWidget {
                       color: Theme.of(context).accentColor,
                       borderRadius: BorderRadius.all(Radius.circular(20))),
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
+                    padding: EdgeInsets.all(15),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Container(
                             alignment: AlignmentDirectional.centerEnd,
@@ -72,9 +75,12 @@ class ProductCard extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(top: 5),
+                          width: SizeConfig.safeBlockHorizontal * 75,
+                          height: SizeConfig.safeBlockVertical * 15,
+                          padding: EdgeInsets.only(top: 5),
                           alignment: AlignmentDirectional.centerStart,
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
@@ -91,7 +97,18 @@ class ProductCard extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              PlantStatus(),
+                              Container(
+                                width: SizeConfig.safeBlockHorizontal * 70,
+                                height: SizeConfig.safeBlockVertical * 8,
+                                child: ListView.builder(
+                                  physics: NeverScrollableScrollPhysics(),
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    return PlantStatus(status: product.requirements[index],);
+                                  },
+                                  itemCount: product.requirements.length,
+                                ),
+                              )
                             ],
                           ),
                         )

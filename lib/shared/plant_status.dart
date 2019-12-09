@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class PlantStatus extends StatelessWidget {
+  final String status;
+
+  PlantStatus({this.status});
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -15,20 +18,7 @@ class PlantStatus extends StatelessWidget {
               borderRadius: BorderRadius.circular(4),
               border: Border.all(color: Colors.white, width: 1.1)),
           child: SvgPicture.asset(
-            'images/status/water.svg',
-            color: Colors.white,
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 8),
-          height: 40,
-          width: 40,
-          padding: EdgeInsets.all(5),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-              border: Border.all(color: Colors.white, width: 1.1)),
-          child: SvgPicture.asset(
-            'images/status/sun.svg',
+            'images/status/${status}.svg',
             color: Colors.white,
           ),
         ),

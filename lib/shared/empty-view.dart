@@ -16,7 +16,7 @@ class EmptyView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          SvgPicture.asset('images/desert.svg',
+          SvgPicture.asset('images/empty.svg',
           height: SizeConfig.safeBlockVertical * 18,
           color: Colors.grey,),
           SizedBox(height: 25,),
