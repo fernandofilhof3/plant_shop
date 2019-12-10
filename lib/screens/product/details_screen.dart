@@ -109,6 +109,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   width: 60,
                                   iconColor: Colors.white,
                                   image: 'images/cart-add.svg',
+                                  product: _product
                                 )
                               ],
                             )),
