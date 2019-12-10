@@ -21,7 +21,10 @@ class CartBloc implements BlocBase {
    void addItem(CartProduct item) async {
     await cartService.addItem(item);
     _getCartItems();
+  }
 
+  void removeItem(){
+    
   }
 
   _getCartItems()async {

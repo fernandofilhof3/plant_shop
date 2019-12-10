@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:plant_shop/screens/cart/cart_screen.dart';
 import 'package:plant_shop/screens/product/product_screen.dart';
 
 class HomeTab extends StatelessWidget {
@@ -48,7 +49,13 @@ class HomeTab extends StatelessWidget {
                       color: Colors.transparent
                     )
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => CartScreen()
+                        )
+                      );
+                    },
                     child: SvgPicture.asset(
                       'images/cart-icon.svg',
                       color: Colors.black87,
