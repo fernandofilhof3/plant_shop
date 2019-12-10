@@ -18,7 +18,7 @@ class EmptyView extends StatelessWidget {
         children: <Widget>[
           SvgPicture.asset('images/empty.svg',
           height: SizeConfig.safeBlockVertical * 18,
-          color: Colors.grey,),
+          color: Colors.grey[400],),
           SizedBox(height: 25,),
           Text(msg, textAlign: TextAlign.center ,style: TextStyle(
             fontSize: 20,

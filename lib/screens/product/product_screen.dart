@@ -55,7 +55,6 @@ class ProductScreen extends StatelessWidget {
                       itemCount: snapshot.data.length,
                     );
                   } else {
-                    log('else');
                     return EmptyView(
                       msg:
                           'Desculpe, não encontramos nenhum produto para esta cartegoria :(',
