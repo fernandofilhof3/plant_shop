@@ -30,7 +30,7 @@ class CartProductCard extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(8),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Container(
@@ -46,7 +46,8 @@ class CartProductCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Container(
-                          width: 140,
+                          width: SizeConfig.safeBlockHorizontal * 30,
+                          // color: Color.fromRGBO(210, 15, 45, 0.3),
                           child: Text(
                             product.name,
                             overflow: TextOverflow.ellipsis,
@@ -73,30 +74,34 @@ class CartProductCard extends StatelessWidget {
                         )
                       ],
                     ),
-                    Row(
-                      children: <Widget>[
-                        IconButton(
-                          onPressed: qtd > 1
-                              ? () {
-                                }
-                              : null,
-                          color: Theme.of(context).accentColor,
-                          icon: Icon(Icons.remove, size: 26,),
-                        ),
-                        Text(
-                          qtd.toString(),
-                          style: TextStyle(
-                              color: Colors.grey[800],
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                          },
-                          color: Theme.of(context).accentColor,
-                          icon: Icon(Icons.add, size: 26,),
-                        ),
-                      ],
+                    Container(
+                      // width: SizeConfig.safeBlockHorizontal * 30,
+                      // color: Color.fromRGBO(31, 87, 192, 0.3),
+                      child: Row(
+                        children: <Widget>[
+                          IconButton(
+                            onPressed: qtd > 1
+                                ? () {
+                                  }
+                                : null,
+                            color: Theme.of(context).accentColor,
+                            icon: Icon(Icons.remove, size: 24,),
+                          ),
+                          Text(
+                            qtd.toString(),
+                            style: TextStyle(
+                                color: Colors.grey[800],
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                            },
+                            color: Theme.of(context).accentColor,
+                            icon: Icon(Icons.add, size: 24,),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -105,7 +110,9 @@ class CartProductCard extends StatelessWidget {
             Column(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.only(right: 4,top: 2),
+                  // color: Colors.yellow,
+                  // width: SizeConfig.safeBlockHorizontal * 5,
+                  padding: EdgeInsets.only(right: 4,top: 4),
                     child: Icon(
                       Icons.close,
                       size: 25,

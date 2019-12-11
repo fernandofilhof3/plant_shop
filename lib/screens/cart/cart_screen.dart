@@ -39,7 +39,7 @@ class _CartScreenState extends State<CartScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     Container(
-                      height: SizeConfig.blockSizeVertical * 78,
+                      height: SizeConfig.blockSizeVertical * 76,
                       width: SizeConfig.safeBlockHorizontal * 93,
                       child: ListView.builder(
                         itemBuilder: (context, index) {
@@ -52,7 +52,7 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                     Container(
                       color: Theme.of(context).accentColor,
-                      height: SizeConfig.safeBlockVertical * 10,
+                      height: SizeConfig.safeBlockVertical * 11,
                       width: SizeConfig.safeBlockHorizontal * 100,
                       child: Center(
                         child: Text(
