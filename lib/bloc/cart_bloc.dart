@@ -37,8 +37,6 @@ class CartBloc implements BlocBase {
   @override
   void dispose() {
     // TODO: implement dispose
-
-    log('disposeC');
     _cartController.close();
   }
 
