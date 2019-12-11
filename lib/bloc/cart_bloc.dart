@@ -10,24 +10,21 @@ class CartBloc implements BlocBase {
   List<CartProduct> productList;
   CartService cartService;
 
-  final StreamController <List<CartProduct>> _cartController = StreamController<List<CartProduct>>();
-  Stream get cartList => _cartController.stream;
+  final StreamController<List<CartProduct>> _cartController = StreamController<List<CartProduct>>.broadcast();
+  Stream get cartList => _cartController.stream.asBroadcastStream();
 
-  CartBloc(){
+  CartBloc() {
     cartService = CartService();
-    // _cartController.stream.listen(_getCartItems);
   }
 
-   void addItem(CartProduct item) async {
+  void addItem(CartProduct item) async {
     await cartService.addItem(item);
-    _getCartItems();
   }
 
-  void removeItem(){
-    
-  }
+  void removeItem() {}
 
-  _getCartItems()async {
+   getCartItems(text) async {
+    _cartController.sink.add(null);
     productList = await cartService.getCartList();
     _cartController.sink.add(productList);
   }
@@ -40,6 +37,8 @@ class CartBloc implements BlocBase {
   @override
   void dispose() {
     // TODO: implement dispose
+
+    log('disposeC');
     _cartController.close();
   }
 
@@ -54,7 +53,7 @@ class CartBloc implements BlocBase {
 
   @override
   void removeListener(listener) {
+    log('removed');
     // TODO: implement removeListener
   }
-
 }

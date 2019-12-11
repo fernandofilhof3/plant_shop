@@ -1,21 +1,21 @@
-import 'package:bloc_pattern/bloc_pattern.dart';
+
 import 'package:flutter/material.dart';
-import 'package:plant_shop/bloc/cart_bloc.dart';
 import 'package:plant_shop/models/cart_product_model.dart';
 import 'package:plant_shop/shared/size_config.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class CartProductCard extends StatelessWidget {
   final int qtd = 0;
-  final CartProduct product = CartProduct();
-  CartBloc get cartBloc => BlocProvider.getBloc<CartBloc>();
+  final CartProduct product;
+
+  const CartProductCard({this.product});
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Container(
       margin: EdgeInsets.only(top: 12),
-      width: SizeConfig.safeBlockHorizontal * 90,
+      width: SizeConfig.safeBlockHorizontal * 92,
       height: SizeConfig.safeBlockVertical * 17,
       decoration: BoxDecoration(
           shape: BoxShape.rectangle,
@@ -28,17 +28,17 @@ class CartProductCard extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsets.all(8),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Container(
                       child: FadeInImage.memoryNetwork(
                         image:
-                            'https://cdn.pixabay.com/photo/2017/04/04/18/59/bonsai-2202769_960_720.png',
-                        height: 80,
-                        width: 80,
+                            product.image,
+                        height: 76,
+                        width: 76,
                         placeholder: kTransparentImage,
                       ),
                     ),
@@ -46,9 +46,9 @@ class CartProductCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Bonsai',
+                          product.name,
                           style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.w500,
                               color: Colors.grey[800]),
                         ),
@@ -60,7 +60,7 @@ class CartProductCard extends StatelessWidget {
                         Container(
                           margin: EdgeInsets.only(top: 15),
                           child: Text(
-                            'R\$ 30.00',
+                            'R\$ ${product.itemPrice.toStringAsFixed(2)}',
                             style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
@@ -74,11 +74,10 @@ class CartProductCard extends StatelessWidget {
                         IconButton(
                           onPressed: qtd > 1
                               ? () {
-                                  cartBloc.removeItem();
                                 }
                               : null,
                           color: Theme.of(context).accentColor,
-                          icon: Icon(Icons.remove, size: 28,),
+                          icon: Icon(Icons.remove, size: 26,),
                         ),
                         Text(
                           qtd.toString(),
@@ -89,10 +88,9 @@ class CartProductCard extends StatelessWidget {
                         ),
                         IconButton(
                           onPressed: () {
-                            cartBloc.addItem(product);
                           },
                           color: Theme.of(context).accentColor,
-                          icon: Icon(Icons.add, size: 28,),
+                          icon: Icon(Icons.add, size: 26,),
                         ),
                       ],
                     ),
@@ -103,7 +101,7 @@ class CartProductCard extends StatelessWidget {
             Column(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.only(right: 5,top: 4),
+                  padding: EdgeInsets.only(right: 4,top: 2),
                     child: Icon(
                       Icons.close,
                       size: 25,

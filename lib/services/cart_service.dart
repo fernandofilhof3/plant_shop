@@ -11,6 +11,7 @@ class CartService {
   Future getCartList() async {
     QuerySnapshot query = await Firestore.instance.collection('cart').getDocuments();
     productList = query.documents.map((item) => CartProduct.fromDocument(item)).toList();
+    log(productList[0].itemPrice.toString());
     return productList;
   }
 
