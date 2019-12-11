@@ -11,11 +11,13 @@ class CartButton extends StatelessWidget {
   final String image;
   final Color color;
   final Color iconColor;
+  final Function onSuccess;
 
   final Product product;
   
 
-  const CartButton({this.width, this.height, this.image, this.color, this.iconColor, this.product});
+  const CartButton({this.width, this.height, this.image, this.color, this.iconColor, this.product, this.onSuccess});
+  CartBloc get cartBloc => BlocProvider.getBloc<CartBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +29,11 @@ class CartButton extends StatelessWidget {
         decoration:
             BoxDecoration(color: color, shape: BoxShape.circle),
         child: InkWell(
-          onTap: () {
-            BlocProvider.getBloc<CartBloc>().addItem(
-              productToCartProduct()
-            );
+          onTap: () async {
+           await cartBloc.addItem(productToCartProduct());
+            if (cartBloc.isAdditioned) {
+              onSuccess();
+            }
 
           },
           child: SvgPicture.asset(

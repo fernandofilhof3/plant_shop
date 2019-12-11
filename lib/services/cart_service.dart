@@ -8,17 +8,19 @@ class CartService {
   CartProduct item;
   List<CartProduct> productList;
 
+
   Future getCartList() async {
     QuerySnapshot query = await Firestore.instance.collection('cart').getDocuments();
     productList = query.documents.map((item) => CartProduct.fromDocument(item)).toList();
-    log(productList[0].itemPrice.toString());
     return productList;
   }
 
    Future addItem(CartProduct item) async {
-    Firestore.instance.collection('cart').add(item.toMap()).then((doc){
-      // NOTIFY?
+     var additioned = false;
+    await Firestore.instance.collection('cart').add(item.toMap()).then((doc){
+      additioned = true;
     });
+    return additioned;
   }
 
   void removeItem(CartProduct item){

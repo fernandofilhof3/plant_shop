@@ -22,14 +22,17 @@ class _DetailsScreenState extends State<DetailsScreen> {
   final Product _product;
   final double _heroHeight;
   final double _heroWidth;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
 
   _DetailsScreenState(this._heroTag, this._product, this._heroHeight, this._heroWidth);
+
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
+      key: _scaffoldKey,
         appBar: AppBar(
           actions: <Widget>[CartInfoButton()],
           elevation: 0,
@@ -109,7 +112,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   width: 60,
                                   iconColor: Colors.white,
                                   image: 'images/cart-add.svg',
-                                  product: _product
+                                  product: _product,
+                                  onSuccess: _onSuccess,
                                 )
                               ],
                             )),
@@ -176,5 +180,17 @@ class _DetailsScreenState extends State<DetailsScreen> {
             );
           },
         ));
+  }
+  void _onSuccess() {
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      content: Text(
+        'Produto adicionado ao carrinho',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            fontSize: 18, letterSpacing: .8, fontWeight: FontWeight.bold, color: Colors.white),
+      ),
+      backgroundColor: Color.fromRGBO(0, 146, 245, 1),
+      duration: Duration(milliseconds: 2400),
+    ));
   }
 }

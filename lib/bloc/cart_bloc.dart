@@ -10,20 +10,32 @@ class CartBloc implements BlocBase {
   List<CartProduct> productList;
   CartService cartService;
 
-  final StreamController<List<CartProduct>> _cartController = StreamController<List<CartProduct>>.broadcast();
+  final StreamController<List<CartProduct>> _cartController =
+      StreamController<List<CartProduct>>.broadcast();
   Stream get cartList => _cartController.stream.asBroadcastStream();
+
+  bool _itemAdditioned = false;
+
+  bool get isAdditioned => _itemAdditioned;
+
+  set isAdditioned(bool value) {
+    _itemAdditioned = value;
+    notifyListeners();
+  }
 
   CartBloc() {
     cartService = CartService();
   }
 
-  void addItem(CartProduct item) async {
-    await cartService.addItem(item);
+  Future addItem(CartProduct item) async {
+    _itemAdditioned = false;
+    _itemAdditioned = await cartService.addItem(item);
+    log(_itemAdditioned.toString());
   }
 
   void removeItem() {}
 
-   getCartItems(text) async {
+  getCartItems(text) async {
     _cartController.sink.add(null);
     productList = await cartService.getCartList();
     _cartController.sink.add(productList);
