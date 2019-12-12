@@ -57,7 +57,7 @@ class CartProductCard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'Tropical',
+                          product.category,
                           style:
                               TextStyle(fontSize: 15, color: Colors.grey[800]),
                         ),

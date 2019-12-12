@@ -30,7 +30,6 @@ class CartBloc implements BlocBase {
   Future addItem(CartProduct item) async {
     _itemAdditioned = false;
     _itemAdditioned = await cartService.addItem(item);
-    log(_itemAdditioned.toString());
   }
 
   void removeItem() {}

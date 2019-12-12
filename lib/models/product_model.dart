@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:plant_shop/models/cart_product_model.dart';
 
 class Product {
   String id;

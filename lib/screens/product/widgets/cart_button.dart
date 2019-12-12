@@ -47,8 +47,11 @@ class CartButton extends StatelessWidget {
 
   CartProduct productToCartProduct(){
     CartProduct item = CartProduct();
+    item.id = product.id;
     item.image = product.image;
     item.name = product.name;
+    item.amount = 1;
+    item.category = product.category;
     item.itemPrice = product.price;
     return item;
   }
