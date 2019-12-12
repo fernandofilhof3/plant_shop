@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:plant_shop/screens/cart/cart_screen.dart';
 import 'package:plant_shop/screens/product/widgets/cart_button.dart';
 
 class CartInfoButton extends StatefulWidget {
@@ -13,15 +13,20 @@ class _CartInfoButtonState extends State<CartInfoButton> {
     return Stack(
       alignment: AlignmentDirectional.bottomEnd,
       children: <Widget>[
-        Container(
-
-        margin: EdgeInsets.only(top:14, right: 15),
-          child: CartButton(
-            color: Color.fromRGBO(130, 191, 136, 1),
-            height: 50,
-            width: 50,
-            iconColor: Colors.white,
-            image: 'images/cart-icon.svg',
+        InkWell(
+          onTap: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => CartScreen()));
+          },
+          child: Container(
+            margin: EdgeInsets.only(top: 14, right: 15),
+            child: CartButton(
+              color: Color.fromRGBO(130, 191, 136, 1),
+              height: 50,
+              width: 50,
+              iconColor: Colors.white,
+              image: 'images/cart-icon.svg',
+            ),
           ),
         ),
         Positioned(

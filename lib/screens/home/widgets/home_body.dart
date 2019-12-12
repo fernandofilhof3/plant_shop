@@ -16,8 +16,7 @@ class HomeBody extends StatelessWidget {
             Scaffold(
               body: HomeTab(),
               drawer: CustomDrawer(
-                pageController: _pageController,
-                userName: 'Lissandra',
+                pageController: _pageController
               ),
             ),
           ],

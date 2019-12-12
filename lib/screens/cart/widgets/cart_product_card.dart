@@ -47,7 +47,6 @@ class CartProductCard extends StatelessWidget {
                       children: <Widget>[
                         Container(
                           width: SizeConfig.safeBlockHorizontal * 30,
-                          // color: Color.fromRGBO(210, 15, 45, 0.3),
                           child: Text(
                             product.name,
                             overflow: TextOverflow.ellipsis,
@@ -75,8 +74,6 @@ class CartProductCard extends StatelessWidget {
                       ],
                     ),
                     Container(
-                      // width: SizeConfig.safeBlockHorizontal * 30,
-                      // color: Color.fromRGBO(31, 87, 192, 0.3),
                       child: Row(
                         children: <Widget>[
                           IconButton(
@@ -110,8 +107,6 @@ class CartProductCard extends StatelessWidget {
             Column(
               children: <Widget>[
                 Container(
-                  // color: Colors.yellow,
-                  // width: SizeConfig.safeBlockHorizontal * 5,
                   padding: EdgeInsets.only(right: 4,top: 4),
                     child: Icon(
                       Icons.close,

@@ -1,11 +1,15 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:plant_shop/models/users.model.dart';
 import 'package:plant_shop/services/auth_service.dart';
 
 class AuthBloc implements BlocBase{
 
   AuthService authService;
+
+User _user;
 
   final StreamController<Map<String, dynamic>> _authController = StreamController<Map<String, dynamic>>();
   Sink get logInn => _authController.sink;
@@ -13,6 +17,8 @@ class AuthBloc implements BlocBase{
   bool _isLogged = false;
   
   bool get isLogged => _isLogged;
+
+  User get getUser => _user;
 
   set isLogged(bool value){
     _isLogged = value;
@@ -27,10 +33,11 @@ class AuthBloc implements BlocBase{
 
   Future doLogin({String email, String password}) async {
     if (email != null && password != null) {
-     isLogged =  await authService.singIn(
+     _user =  await authService.singIn(
         email: email,
         pass: password
       );
+      _isLogged =  _user != null ? true : false;
       // _loginController.add(authService.islooged());
     }
   }

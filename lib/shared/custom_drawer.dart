@@ -1,37 +1,35 @@
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:plant_shop/bloc/auth_bloc.dart';
+import 'package:plant_shop/models/users.model.dart';
 import 'package:plant_shop/tiles/drawer_tile.dart';
 
 class CustomDrawer extends StatelessWidget {
   final PageController pageController;
-  final String userName;
 
-  CustomDrawer({@required this.pageController, this.userName});
+  final User user = BlocProvider.getBloc<AuthBloc>().getUser;
+
+
+  CustomDrawer({@required this.pageController});
 
   @override
   Widget build(BuildContext context) {
-    Widget _buildDrawerBack() => Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [
-            Color(0xFF00A5B5).withOpacity(0.6),
-            Color(0xFFa5cdd1).withOpacity(0.1)
-          ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
-        );
     return Drawer(
       child: Stack(
         children: <Widget>[
-          // _buildDrawerBack(),
           ListView(
             padding: EdgeInsets.only(top: 15),
             children: <Widget>[
               Column(
                 children: <Widget>[
                   CachedNetworkImage(
-                    imageUrl: 'https://cdn.dribbble.com/users/877246/screenshots/5902366/girl_2x.png',
+                    imageUrl: user.image,
                     imageBuilder: (context, imageProvider) {
                       return Container(
                         height: 120,
                         width: 120,
+                        margin: EdgeInsets.only(bottom: 8),
                         decoration: BoxDecoration(
                           border: Border.all(color: Theme.of(context).accentColor, width: 1.6),
                           shape: BoxShape.circle,
@@ -53,7 +51,7 @@ class CustomDrawer extends StatelessWidget {
                             fontSize: 20, color: Theme.of(context).accentColor),
                       ),
                       Text(
-                        userName + '.',
+                        user.name + '.',
                         style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.w500,

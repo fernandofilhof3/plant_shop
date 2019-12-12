@@ -30,7 +30,7 @@ class StaggerAnimation extends StatelessWidget {
           onTap: () async {
             controller.forward();
             await onSubmited();
-            if (authBloc.isLogged) {
+            if (authBloc.getUser != null) {
               controller.forward();
               controller.addStatusListener((status) {
                 if (status == AnimationStatus.completed) {

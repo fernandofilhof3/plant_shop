@@ -29,13 +29,14 @@ class CartButton extends StatelessWidget {
         decoration:
             BoxDecoration(color: color, shape: BoxShape.circle),
         child: InkWell(
-          onTap: () async {
+          onTap: product != null ? () async {
+          
            await cartBloc.addItem(productToCartProduct());
             if (cartBloc.isAdditioned) {
               onSuccess();
             }
 
-          },
+          } : null,
           child: SvgPicture.asset(
             image,
             color: iconColor,

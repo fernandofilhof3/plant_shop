@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -37,7 +35,7 @@ class ProductScreen extends StatelessWidget {
           SizedBox(height: 32, child: CategoryButton()),
           Container(
             width: SizeConfig.safeBlockHorizontal * 100,
-            height: SizeConfig.safeBlockVertical * 70,
+            height: SizeConfig.safeBlockVertical * 72,
             child: StreamBuilder(
               stream: BlocProvider.getBloc<ProductBloc>().getProduct,
               initialData: [],

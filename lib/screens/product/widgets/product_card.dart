@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:plant_shop/models/product_model.dart';
 import 'package:plant_shop/screens/product/details_screen.dart';
@@ -99,7 +97,7 @@ class ProductCard extends StatelessWidget {
                               ),
                               Container(
                                 width: SizeConfig.safeBlockHorizontal * 70,
-                                height: SizeConfig.safeBlockVertical * 8,
+                                height: SizeConfig.safeBlockVertical * 7,
                                 child: ListView.builder(
                                   physics: NeverScrollableScrollPhysics(),
                                   scrollDirection: Axis.horizontal,
