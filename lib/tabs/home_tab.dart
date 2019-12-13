@@ -46,7 +46,7 @@ class _HomeTabState extends State<HomeTab> {
                     margin: EdgeInsets.only(right: 8, top: 8),
                     alignment: AlignmentDirectional.center,
                     decoration: BoxDecoration(
-                        shape: BoxShape.circle, color: Colors.grey[200]),
+                        shape: BoxShape.circle, color: Colors.grey[100]),
                     child: MaterialButton(
                         height: 48,
                         padding: EdgeInsets.all(1),
@@ -76,7 +76,7 @@ class _HomeTabState extends State<HomeTab> {
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: Colors.grey[850]),
+                                      color:Theme.of(context).accentColor),
                                   child: Text(
                                     cartBloc.cartAmount.toString(),
                                     style: TextStyle(
