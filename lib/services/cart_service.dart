@@ -9,6 +9,7 @@ import 'package:plant_shop/models/users.model.dart';
 class CartService {
   CartProduct item;
   List<CartProduct> productList;
+  int total = 0;
 
   User get user => BlocProvider.getBloc<AuthBloc>().getUser;
 
@@ -29,7 +30,12 @@ class CartService {
         .document(user.id)
         .collection('cart')
         .getDocuments();
-    return query.documents.map((item) => CartProduct.fromDocument(item)).toList().length;
+    var x = query.documents.map((item) => CartProduct.fromDocument(item)).toList();
+    total = 0;
+    x.forEach((item) {
+      total += item.amount;
+    });
+    return total;
   }
 
   Future addItem(CartProduct item) async {
