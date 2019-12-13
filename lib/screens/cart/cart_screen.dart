@@ -11,6 +11,7 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   CartBloc get cartBloc => BlocProvider.getBloc<CartBloc>();
 
   @override
@@ -19,6 +20,7 @@ class _CartScreenState extends State<CartScreen> {
     cartBloc.getCartItems('');
 
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.grey[800]),
         title: Text(
@@ -45,6 +47,7 @@ class _CartScreenState extends State<CartScreen> {
                         itemBuilder: (context, index) {
                           return CartProductCard(
                             product: snapshot.data[index],
+                            onSuccess: _onSuccess,
                           );
                         },
                         itemCount: snapshot.data.length,
@@ -85,5 +88,26 @@ class _CartScreenState extends State<CartScreen> {
             }
           }),
     );
+  }
+
+  void _onSuccess() {
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      content: Container(
+        height: SizeConfig.safeBlockVertical * 8,
+        width: SizeConfig.safeBlockHorizontal * 100,
+        alignment: AlignmentDirectional.center,
+        child: Text(
+          'Produto removido do carrinho',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 18,
+              letterSpacing: .8,
+              fontWeight: FontWeight.bold,
+              color: Colors.white),
+        ),
+      ),
+      backgroundColor: Color.fromRGBO(0, 146, 245, 1),
+      duration: Duration(milliseconds: 1500),
+    ));
   }
 }

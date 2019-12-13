@@ -23,17 +23,27 @@ class CartService {
     return productList;
   }
 
+  Future getCartAmount() async {
+    QuerySnapshot query = await Firestore.instance
+        .collection('users')
+        .document(user.id)
+        .collection('cart')
+        .getDocuments();
+    return query.documents.map((item) => CartProduct.fromDocument(item)).toList().length;
+  }
+
   Future addItem(CartProduct item) async {
     var additioned = false;
     await getCartList();
 
     if (productList.length > 0) {
-      var product = productList.firstWhere((x) => x.id == item.id);
-      if (product == null) {
-        await addNewItem(item);
+      var product = productList.where((x) => x.id == item.id);
+      if (product.length == 0) {
+        await addNewItem(item).then((doc) {
+        additioned = true;
+      });
       } else {
-      log('increment');
-        await incrementItem(item.id, product.amount + 1).then((doc) {
+        await incrementItem(item.id, product.first.amount + 1).then((doc) {
           additioned = true;
           return additioned;
         });
@@ -43,7 +53,6 @@ class CartService {
         additioned = true;
       });
     }
-
     return additioned;
 
   }
@@ -60,7 +69,6 @@ class CartService {
   }
 
   Future incrementItem(String productId, int value) async {
-    log(value.toString());
     await Firestore.instance
         .collection('users')
         .document(user.id)
@@ -69,8 +77,18 @@ class CartService {
         .updateData({'amount': value});
   }
 
-  void removeItem(CartProduct item) {
-    Firestore.instance.collection('cart').document(item.id).delete();
+  Future decrementItem(String productId, int value) async {
+    await Firestore.instance
+        .collection('users')
+        .document(user.id)
+        .collection('cart')
+        .document(productId)
+        .updateData({'amount': value});
+  }
+
+  Future removeItem(CartProduct item) async{
+    var success = await Firestore.instance.collection('users').document(user.id).collection('cart').document(item.id).delete().then((doc){return true;});
+    return success;
     // NOTIFY?
   }
 }

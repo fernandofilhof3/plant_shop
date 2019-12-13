@@ -1,14 +1,29 @@
+import 'dart:developer';
 
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:plant_shop/bloc/cart_bloc.dart';
 import 'package:plant_shop/models/cart_product_model.dart';
 import 'package:plant_shop/shared/size_config.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class CartProductCard extends StatelessWidget {
-  final int qtd = 0;
+class CartProductCard extends StatefulWidget {
   final CartProduct product;
+  final Function onSuccess;
 
-  const CartProductCard({this.product});
+  const CartProductCard({this.product, this.onSuccess});
+
+  @override
+  _CartProductCardState createState() =>
+      _CartProductCardState(product, onSuccess);
+}
+
+class _CartProductCardState extends State<CartProductCard> {
+  CartBloc get cartBloc => BlocProvider.getBloc<CartBloc>();
+  final CartProduct _product;
+  final Function _onSuccess;
+
+  _CartProductCardState(this._product, this._onSuccess);
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +50,7 @@ class CartProductCard extends StatelessWidget {
                   children: <Widget>[
                     Container(
                       child: FadeInImage.memoryNetwork(
-                        image:
-                            product.image,
+                        image: _product.image,
                         height: 76,
                         width: 76,
                         placeholder: kTransparentImage,
@@ -48,7 +62,7 @@ class CartProductCard extends StatelessWidget {
                         Container(
                           width: SizeConfig.safeBlockHorizontal * 30,
                           child: Text(
-                            product.name,
+                            _product.name,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                                 fontSize: 18,
@@ -57,14 +71,14 @@ class CartProductCard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          product.category,
+                          _product.category,
                           style:
                               TextStyle(fontSize: 15, color: Colors.grey[800]),
                         ),
                         Container(
                           margin: EdgeInsets.only(top: 15),
                           child: Text(
-                            'R\$ ${product.itemPrice.toStringAsFixed(2)}',
+                            'R\$ ${widget.product.itemPrice.toStringAsFixed(2)}',
                             style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
@@ -77,25 +91,45 @@ class CartProductCard extends StatelessWidget {
                       child: Row(
                         children: <Widget>[
                           IconButton(
-                            onPressed: qtd > 1
-                                ? () {
+                            onPressed: _product.amount > 1
+                                ? () async {
+                                    await cartBloc
+                                        .decrementItem(_product.id, _product.amount-1)
+                                        .then((doc) {
+                                      setState(() {
+                                        _product.amount = _product.amount -1;
+                                      });
+                                    });
                                   }
                                 : null,
                             color: Theme.of(context).accentColor,
-                            icon: Icon(Icons.remove, size: 24,),
+                            icon: Icon(
+                              Icons.remove,
+                              size: 24,
+                            ),
                           ),
                           Text(
-                            qtd.toString(),
+                            _product.amount.toString(),
                             style: TextStyle(
                                 color: Colors.grey[800],
                                 fontSize: 18,
                                 fontWeight: FontWeight.w500),
                           ),
                           IconButton(
-                            onPressed: () {
+                            onPressed: () async {
+                              await cartBloc
+                                  .addItem(_product)
+                                  .then((doc) {
+                                setState(() {
+                                  _product.amount++;
+                                });
+                              });
                             },
                             color: Theme.of(context).accentColor,
-                            icon: Icon(Icons.add, size: 24,),
+                            icon: Icon(
+                              Icons.add,
+                              size: 24,
+                            ),
                           ),
                         ],
                       ),
@@ -107,10 +141,16 @@ class CartProductCard extends StatelessWidget {
             Column(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.only(right: 4,top: 4),
-                    child: Icon(
-                      Icons.close,
-                      size: 25,
+                    width: 38,
+                    height: 38,
+                    child: IconButton(
+                      onPressed: () async {
+                        await cartBloc.removeItem(_product);
+                        if (cartBloc.isRemoved) {
+                          _onSuccess();
+                        }
+                      },
+                      icon: Icon(Icons.delete_outline),
                       color: Colors.grey[500],
                     ))
               ],

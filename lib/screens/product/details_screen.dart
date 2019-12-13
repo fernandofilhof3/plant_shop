@@ -14,7 +14,8 @@ class DetailsScreen extends StatefulWidget {
   DetailsScreen({this.heroTag, this.product, this.heroHeight, this.heroWidth});
 
   @override
-  _DetailsScreenState createState() => _DetailsScreenState(heroTag, product, heroHeight, heroWidth);
+  _DetailsScreenState createState() =>
+      _DetailsScreenState(heroTag, product, heroHeight, heroWidth);
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
@@ -24,15 +25,15 @@ class _DetailsScreenState extends State<DetailsScreen> {
   final double _heroWidth;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-
-  _DetailsScreenState(this._heroTag, this._product, this._heroHeight, this._heroWidth);
-
+  _DetailsScreenState(
+      this._heroTag, this._product, this._heroHeight, this._heroWidth);
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    
     return Scaffold(
-      key: _scaffoldKey,
+        key: _scaffoldKey,
         appBar: AppBar(
           actions: <Widget>[CartInfoButton()],
           elevation: 0,
@@ -145,13 +146,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(bottom: 0),
-                                    child: 
-                                  Text(
-                                    _product.description,
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                        fontSize: 16, letterSpacing: 0.8),
-                                  ),
+                                    child: Text(
+                                      _product.description,
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                          fontSize: 16, letterSpacing: 0.8),
+                                    ),
                                   )
                                 ],
                               )),
@@ -162,18 +162,17 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         top: 45,
                         right: 0,
                         child: Hero(
-                          tag: _heroTag,
-                          child: Container(
-                            alignment: AlignmentDirectional.bottomCenter,
-                            height: _heroHeight,
-                            width: _heroWidth,
-                            child: FadeInImage.memoryNetwork(
-                            fadeInDuration: Duration(milliseconds: 500),
-                            image: _product.image,
-                            placeholder: kTransparentImage,
-                          ),
-                          )
-                        )),
+                            tag: _heroTag,
+                            child: Container(
+                              alignment: AlignmentDirectional.bottomCenter,
+                              height: _heroHeight,
+                              width: _heroWidth,
+                              child: FadeInImage.memoryNetwork(
+                                fadeInDuration: Duration(milliseconds: 500),
+                                image: _product.image,
+                                placeholder: kTransparentImage,
+                              ),
+                            ))),
                   ],
                 )),
               ),
@@ -181,16 +180,25 @@ class _DetailsScreenState extends State<DetailsScreen> {
           },
         ));
   }
+
   void _onSuccess() {
     _scaffoldKey.currentState.showSnackBar(SnackBar(
-      content: Text(
-        'Produto adicionado ao carrinho',
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: 18, letterSpacing: .8, fontWeight: FontWeight.bold, color: Colors.white),
+      content: Container(
+        height: SizeConfig.safeBlockVertical * 5,
+        width: SizeConfig.safeBlockHorizontal * 100,
+        alignment: AlignmentDirectional.center,
+        child: Text(
+          'Produto adicionado ao carrinho',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 18,
+              letterSpacing: .8,
+              fontWeight: FontWeight.bold,
+              color: Colors.white),
+        ),
       ),
       backgroundColor: Color.fromRGBO(0, 146, 245, 1),
-      duration: Duration(milliseconds: 2400),
+      duration: Duration(milliseconds: 1500),
     ));
   }
 }

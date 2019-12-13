@@ -1,4 +1,6 @@
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:plant_shop/bloc/cart_bloc.dart';
 import 'package:plant_shop/screens/cart/cart_screen.dart';
 import 'package:plant_shop/screens/product/widgets/cart_button.dart';
 
@@ -8,6 +10,8 @@ class CartInfoButton extends StatefulWidget {
 }
 
 class _CartInfoButtonState extends State<CartInfoButton> {
+  CartBloc get cartBloc => BlocProvider.getBloc<CartBloc>();
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -29,24 +33,30 @@ class _CartInfoButtonState extends State<CartInfoButton> {
             ),
           ),
         ),
-        Positioned(
+         Positioned(
           top: 4,
           right: 15,
-          child: Container(
-            width: 24,
-            height: 24,
-            alignment: Alignment.center,
-            decoration:
-                BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-            child: Text(
-              '2',
-              style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-        )
+          child: StreamBuilder(
+            stream: cartBloc.cartList,
+            builder: (context, snapshot) {
+              return cartBloc.cartAmount > 0 ?
+              Container(
+                width: 24,
+                height: 24,
+                alignment: Alignment.center,
+                decoration:
+                    BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                child: Text(
+                  cartBloc.cartAmount.toString(),
+                  style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold),
+                ),
+              ): Container();
+            }
+          )
+        ),
       ],
     );
   }

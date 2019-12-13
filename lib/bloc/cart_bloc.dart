@@ -9,9 +9,9 @@ class CartBloc implements BlocBase {
   CartProduct product;
   List<CartProduct> productList;
   CartService cartService;
+  int _cartAmount = 0;
 
-  final StreamController<List<CartProduct>> _cartController =
-      StreamController<List<CartProduct>>.broadcast();
+  final StreamController<List<CartProduct>> _cartController = StreamController<List<CartProduct>>.broadcast();
   Stream get cartList => _cartController.stream.asBroadcastStream();
 
   bool _itemAdditioned = false;
@@ -22,6 +22,16 @@ class CartBloc implements BlocBase {
     _itemAdditioned = value;
     notifyListeners();
   }
+  int get cartAmount => _cartAmount;
+
+  bool _itemRemoved= false;
+
+  bool get isRemoved => _itemRemoved;
+
+  set isRemoved(bool value) {
+    _itemRemoved = value;
+    notifyListeners();
+  }
 
   CartBloc() {
     cartService = CartService();
@@ -30,9 +40,24 @@ class CartBloc implements BlocBase {
   Future addItem(CartProduct item) async {
     _itemAdditioned = false;
     _itemAdditioned = await cartService.addItem(item);
+    getCartAmount();
   }
 
-  void removeItem() {}
+  Future removeItem(CartProduct item) async{
+     _itemRemoved = await cartService.removeItem(item);
+    getCartItems('');
+    getCartAmount();
+  }
+
+  Future decrementItem(String productId, int amount) async{
+     _itemRemoved = await cartService.decrementItem(productId, amount);
+     getCartAmount();
+  }
+
+  Future getCartAmount() async{
+    _cartAmount = await cartService.getCartAmount();
+    _cartController.sink.add(productList);
+  }
 
   getCartItems(text) async {
     _cartController.sink.add(null);
@@ -62,7 +87,6 @@ class CartBloc implements BlocBase {
 
   @override
   void removeListener(listener) {
-    log('removed');
     // TODO: implement removeListener
   }
 }
