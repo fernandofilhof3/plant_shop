@@ -2,6 +2,7 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_shop/bloc/cart_bloc.dart';
 import 'package:plant_shop/screens/cart/widgets/cart_product_card.dart';
+import 'package:plant_shop/screens/cart/widgets/confirm_order.dart';
 import 'package:plant_shop/shared/empty-view.dart';
 import 'package:plant_shop/shared/size_config.dart';
 
@@ -12,6 +13,8 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _scrollController = ScrollController();
+  bool _hideAppbar = false;
   CartBloc get cartBloc => BlocProvider.getBloc<CartBloc>();
 
   @override
@@ -21,53 +24,61 @@ class _CartScreenState extends State<CartScreen> {
 
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.grey[800]),
-        title: Text(
-          'Carrinho',
-          style: TextStyle(
-              fontSize: 20, color: Colors.grey[800], letterSpacing: 0.8),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
+      appBar: !_hideAppbar
+          ? AppBar(
+              iconTheme: IconThemeData(color: Colors.grey[800]),
+              title: Text(
+                'Carrinho',
+                style: TextStyle(
+                    fontSize: 20, color: Colors.grey[800], letterSpacing: 0.8),
+              ),
+              centerTitle: true,
+              backgroundColor: Colors.white,
+              elevation: 0,
+            )
+          : null,
       body: StreamBuilder(
           stream: cartBloc.cartList,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data.length > 0) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                return ListView(
+                  controller: _scrollController,
+                  physics: NeverScrollableScrollPhysics(),
                   children: <Widget>[
-                    Container(
-                      height: SizeConfig.blockSizeVertical * 76,
-                      width: SizeConfig.safeBlockHorizontal * 93,
-                      child: ListView.builder(
-                        itemBuilder: (context, index) {
-                          return CartProductCard(
-                            product: snapshot.data[index],
-                            onSuccess: _onSuccess,
-                          );
-                        },
-                        itemCount: snapshot.data.length,
-                      ),
-                    ),
-                    Container(
-                      color: Theme.of(context).accentColor,
-                      height: SizeConfig.safeBlockVertical * 11,
-                      width: SizeConfig.safeBlockHorizontal * 100,
-                      child: Center(
-                        child: Text(
-                          'Fechar pedido',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              letterSpacing: 0.8,
-                              fontSize: 22),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Container(
+                          height: SizeConfig.blockSizeVertical * 76,
+                          width: SizeConfig.safeBlockHorizontal * 93,
+                          child: ListView.builder(
+                            itemBuilder: (context, index) {
+                              return CartProductCard(
+                                product: snapshot.data[index],
+                                onSuccess: _onSuccess,
+                              );
+                            },
+                            itemCount: snapshot.data.length,
+                          ),
                         ),
-                      ),
-                    )
+                      ],
+                    ),
+                    InkWell(
+                        onTap: () {
+                          setState(() {
+                            _hideAppbar = true;
+                          });
+                          _scrollController.animateTo(
+                              SizeConfig.safeBlockVertical * 100,
+                              duration: Duration(milliseconds: 800),
+                              curve: Curves.easeIn);
+                        },
+                        child: Container(
+                            color: Theme.of(context).accentColor,
+                            child: ConfirmOrder(
+                              animateBack: _animateBack,
+                            )))
                   ],
                 );
               } else {
@@ -88,6 +99,14 @@ class _CartScreenState extends State<CartScreen> {
             }
           }),
     );
+  }
+
+  void _animateBack() {
+    _scrollController.animateTo(SizeConfig.safeBlockVertical * 0,
+        duration: Duration(milliseconds: 800), curve: Curves.easeIn);
+    setState(() {
+      _hideAppbar = false;
+    });
   }
 
   void _onSuccess() {
