@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_shop/bloc/cart_bloc.dart';
@@ -45,7 +43,6 @@ class _CartProductCardState extends State<CartProductCard> {
               child: Padding(
                 padding: const EdgeInsets.all(8),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Container(
@@ -75,8 +72,10 @@ class _CartProductCardState extends State<CartProductCard> {
                           style:
                               TextStyle(fontSize: 15, color: Colors.grey[800]),
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
                         Container(
-                          margin: EdgeInsets.only(top: 15),
                           child: Text(
                             'R\$ ${widget.product.itemPrice.toStringAsFixed(2)}',
                             style: TextStyle(
@@ -84,12 +83,7 @@ class _CartProductCardState extends State<CartProductCard> {
                                 fontWeight: FontWeight.bold,
                                 color: Theme.of(context).accentColor),
                           ),
-                        )
-                      ],
-                    ),
-                    Container(
-                      child: Row(
-                        children: <Widget>[
+                        ),
                           IconButton(
                             onPressed: _product.amount > 1
                                 ? () async {
@@ -133,6 +127,7 @@ class _CartProductCardState extends State<CartProductCard> {
                           ),
                         ],
                       ),
+                      ],
                     ),
                   ],
                 ),

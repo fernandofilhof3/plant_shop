@@ -60,7 +60,6 @@ class CartService {
       });
     }
     return additioned;
-
   }
 
   Future addNewItem(CartProduct item) async {

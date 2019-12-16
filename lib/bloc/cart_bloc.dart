@@ -46,7 +46,6 @@ class CartBloc implements BlocBase {
   Future removeItem(CartProduct item) async{
      _itemRemoved = await cartService.removeItem(item);
     getCartItems('');
-    getCartAmount();
   }
 
   Future decrementItem(String productId, int amount) async{
@@ -63,6 +62,7 @@ class CartBloc implements BlocBase {
     _cartController.sink.add(null);
     productList = await cartService.getCartList();
     _cartController.sink.add(productList);
+    getCartAmount();
   }
 
   @override
