@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:plant_shop/bloc/auth_bloc.dart';
@@ -10,6 +8,7 @@ class CartService {
   CartProduct item;
   List<CartProduct> productList;
   int total = 0;
+  double totalValue = 0;
 
   User get user => BlocProvider.getBloc<AuthBloc>().getUser;
 
@@ -32,10 +31,15 @@ class CartService {
         .getDocuments();
     var x = query.documents.map((item) => CartProduct.fromDocument(item)).toList();
     total = 0;
+    totalValue = 0;
     x.forEach((item) {
+      totalValue += item.itemPrice * item.amount;
       total += item.amount;
     });
-    return total;
+    return {
+      'amount': total,
+      'totalPrice': totalValue
+    };
   }
 
   Future addItem(CartProduct item) async {
@@ -80,6 +84,8 @@ class CartService {
         .collection('cart')
         .document(productId)
         .updateData({'amount': value});
+
+        getCartAmount();
   }
 
   Future decrementItem(String productId, int value) async {
@@ -89,6 +95,9 @@ class CartService {
         .collection('cart')
         .document(productId)
         .updateData({'amount': value});
+
+    getCartAmount();
+
   }
 
   Future removeItem(CartProduct item) async{

@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
-
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:plant_shop/models/product_model.dart';
 import 'package:plant_shop/services/plant_service.dart';

@@ -5,7 +5,6 @@ import 'package:plant_shop/screens/cart/widgets/cart_product_card.dart';
 import 'package:plant_shop/screens/cart/widgets/confirm_order.dart';
 import 'package:plant_shop/shared/empty-view.dart';
 import 'package:plant_shop/shared/size_config.dart';
-
 class CartScreen extends StatefulWidget {
   @override
   _CartScreenState createState() => _CartScreenState();
@@ -78,6 +77,8 @@ class _CartScreenState extends State<CartScreen> {
                             color: Theme.of(context).accentColor,
                             child: ConfirmOrder(
                               animateBack: _animateBack,
+                              cartPrice: cartBloc.cartPrice,
+                              shippingPrice: 7.99,
                             )))
                   ],
                 );

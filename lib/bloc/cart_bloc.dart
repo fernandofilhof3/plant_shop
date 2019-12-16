@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:plant_shop/models/cart_product_model.dart';
 import 'package:plant_shop/services/cart_service.dart';
@@ -10,6 +9,7 @@ class CartBloc implements BlocBase {
   List<CartProduct> productList;
   CartService cartService;
   int _cartAmount = 0;
+  double _cartPrice = 0;
 
   final StreamController<List<CartProduct>> _cartController = StreamController<List<CartProduct>>.broadcast();
   Stream get cartList => _cartController.stream.asBroadcastStream();
@@ -23,6 +23,8 @@ class CartBloc implements BlocBase {
     notifyListeners();
   }
   int get cartAmount => _cartAmount;
+
+  double get cartPrice => _cartPrice;
 
   bool _itemRemoved= false;
 
@@ -54,7 +56,9 @@ class CartBloc implements BlocBase {
   }
 
   Future getCartAmount() async{
-    _cartAmount = await cartService.getCartAmount();
+    var cartInfo = await cartService.getCartAmount();
+    _cartAmount = cartInfo['amount'];
+    _cartPrice = cartInfo['totalPrice'];
     _cartController.sink.add(productList);
   }
 

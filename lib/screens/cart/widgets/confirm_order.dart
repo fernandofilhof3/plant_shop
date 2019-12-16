@@ -4,8 +4,10 @@ import 'package:plant_shop/shared/text_row.dart';
 
 class ConfirmOrder extends StatelessWidget {
   final Function animateBack;
+  final double cartPrice;
+  final double shippingPrice;
 
-  ConfirmOrder({this.animateBack});
+  ConfirmOrder({this.animateBack, this.cartPrice, this.shippingPrice});
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -57,7 +59,7 @@ class ConfirmOrder extends StatelessWidget {
                       TextRow(
                         icon: 'images/cart-icon.svg',
                         title: 'Valor do carrinho',
-                        subtitle: 'R\$ 370.00',
+                        subtitle: 'R\$ ' + cartPrice.toStringAsFixed(2),
                       ),
                       SizedBox(
                         height: SizeConfig.safeBlockVertical * 5,
@@ -65,7 +67,7 @@ class ConfirmOrder extends StatelessWidget {
                       TextRow(
                         icon: 'images/shipped.svg',
                         title: 'Frete',
-                        subtitle: 'R\$ 4.99',
+                        subtitle: 'R\$ ' + shippingPrice.toStringAsFixed(2),
                       ),
                       SizedBox(
                         height: SizeConfig.safeBlockVertical * 6,
@@ -85,18 +87,6 @@ class ConfirmOrder extends StatelessWidget {
                               fontWeight: FontWeight.bold),
                         ),
                       )
-                      // Card(
-                      //   elevation: 1,
-
-                      //   shape: RoundedRectangleBorder(
-                      //       borderRadius:
-                      //           BorderRadius.all(Radius.circular(20))),
-                      //   color: Colors.white,
-                      //   child: Container(
-                      //     width: SizeConfig.safeBlockHorizontal * 30,
-                      //     height: SizeConfig.safeBlockVertical * 25,
-                      //   ),
-                      // )
                     ],
                   ),
                 )
@@ -126,7 +116,7 @@ class ConfirmOrder extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'R\$ 374.99',
+                        'R\$ ${(cartPrice + shippingPrice).toStringAsFixed(2)}',
                         style: TextStyle(
                             fontSize: 22,
                             color: Colors.grey[850],
