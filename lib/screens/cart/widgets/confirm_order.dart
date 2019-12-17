@@ -1,13 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:plant_shop/models/order_model.dart';
+import 'package:plant_shop/screens/cart/widgets/confirm_button.dart';
 import 'package:plant_shop/shared/size_config.dart';
 import 'package:plant_shop/shared/text_row.dart';
 
-class ConfirmOrder extends StatelessWidget {
+class ConfirmOrder extends StatefulWidget {
   final Function animateBack;
   final double cartPrice;
   final double shippingPrice;
 
+
   ConfirmOrder({this.animateBack, this.cartPrice, this.shippingPrice});
+
+  @override
+  _ConfirmOrderState createState() => _ConfirmOrderState();
+}
+
+class _ConfirmOrderState extends State<ConfirmOrder> with SingleTickerProviderStateMixin{
+  AnimationController _controller;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  List<Order> _order;
+
+@override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+        vsync: this, duration: Duration(milliseconds: 1800));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -57,7 +83,7 @@ class ConfirmOrder extends StatelessWidget {
                       TextRow(
                         icon: 'images/cart-icon.svg',
                         title: 'Valor do carrinho',
-                        subtitle: 'R\$ ' + cartPrice.toStringAsFixed(2),
+                        subtitle: 'R\$ ' + widget.cartPrice.toStringAsFixed(2),
                       ),
                       SizedBox(
                         height: SizeConfig.safeBlockVertical * 5,
@@ -65,7 +91,7 @@ class ConfirmOrder extends StatelessWidget {
                       TextRow(
                         icon: 'images/shipped.svg',
                         title: 'Frete',
-                        subtitle: 'R\$ ' + shippingPrice.toStringAsFixed(2),
+                        subtitle: 'R\$ ' + widget.shippingPrice.toStringAsFixed(2),
                       ),
                       SizedBox(
                         height: SizeConfig.safeBlockVertical * 6,
@@ -75,7 +101,7 @@ class ConfirmOrder extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(10))
                         ),
                         onPressed: (){
-                          animateBack();
+                          widget.animateBack();
                         },
                         child: Text(
                           'Revisar Pedido',
@@ -114,7 +140,7 @@ class ConfirmOrder extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'R\$ ${(cartPrice + shippingPrice).toStringAsFixed(2)}',
+                        'R\$ ${(widget.cartPrice + widget.shippingPrice).toStringAsFixed(2)}',
                         style: TextStyle(
                             fontSize: 22,
                             color: Colors.grey[850],
@@ -123,27 +149,38 @@ class ConfirmOrder extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Container(
-                    margin:
-                        EdgeInsets.only(top: SizeConfig.safeBlockVertical * 8),
-                    width: SizeConfig.safeBlockVertical * 50,
-                    height: 60,
-                    decoration: BoxDecoration(
-                        color: Colors.grey[900],
-                        borderRadius: BorderRadius.all(Radius.circular(30))),
-                    child: Center(
-                        child: Text(
-                      'Comprar',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold),
-                    )),
+                  SizedBox(
+                        height: SizeConfig.safeBlockVertical * 8,
+                      ),
+                  ConfirmButton(
+                    controller: _controller.view,
+                    onError: _onError,
+                    order: createOrder(),
                   )
                 ],
               )),
         )
       ],
     );
+  }
+
+  Order createOrder() {
+    Order item = Order();
+    item.price = widget.cartPrice +  widget.shippingPrice;
+    item.status = 'PENDING';
+    return item;
+  }
+
+   void _onError() {
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      content: Text(
+        'Ocorreu um problema.',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            fontSize: 18, letterSpacing: .8, fontWeight: FontWeight.bold),
+      ),
+      backgroundColor: Colors.redAccent,
+      duration: Duration(milliseconds: 2200),
+    ));
   }
 }

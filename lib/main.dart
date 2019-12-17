@@ -2,6 +2,7 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_shop/bloc/auth_bloc.dart';
 import 'package:plant_shop/bloc/cart_bloc.dart';
+import 'package:plant_shop/bloc/orders_bloc.dart';
 import 'package:plant_shop/bloc/product_bloc.dart';
 import 'package:plant_shop/screens/login/login_screen.dart';
 
@@ -15,7 +16,9 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       blocs: [Bloc((b) => ProductBloc()),
        Bloc((b)=> AuthBloc()),
-       Bloc((b)=> CartBloc())],
+       Bloc((b)=> CartBloc()),
+       Bloc((b)=> OrderBloc()),
+       ],
       child: MaterialApp(
         home: LoginScreen(),
         debugShowCheckedModeBanner: false,
