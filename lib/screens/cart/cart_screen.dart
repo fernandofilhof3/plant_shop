@@ -1,20 +1,25 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_shop/bloc/cart_bloc.dart';
+import 'package:plant_shop/screens/cart/widgets/cart_app_bar.dart';
 import 'package:plant_shop/screens/cart/widgets/cart_product_card.dart';
 import 'package:plant_shop/screens/cart/widgets/confirm_order.dart';
 import 'package:plant_shop/shared/empty-view.dart';
 import 'package:plant_shop/shared/size_config.dart';
+
 class CartScreen extends StatefulWidget {
   @override
   _CartScreenState createState() => _CartScreenState();
 }
 
-class _CartScreenState extends State<CartScreen> {
+class _CartScreenState extends State<CartScreen>
+    with SingleTickerProviderStateMixin {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _scrollController = ScrollController();
   bool _hideAppbar = false;
+
   CartBloc get cartBloc => BlocProvider.getBloc<CartBloc>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -23,19 +28,9 @@ class _CartScreenState extends State<CartScreen> {
 
     return Scaffold(
       key: _scaffoldKey,
-      appBar: !_hideAppbar
-          ? AppBar(
-              iconTheme: IconThemeData(color: Colors.grey[800]),
-              title: Text(
-                'Carrinho',
-                style: TextStyle(
-                    fontSize: 20, color: Colors.grey[800], letterSpacing: 0.8),
-              ),
-              centerTitle: true,
-              backgroundColor: Colors.white,
-              elevation: 0,
-            )
-          : null,
+      appBar: CartAppBar(
+        startDecrease: _hideAppbar,
+      ),
       body: StreamBuilder(
           stream: cartBloc.cartList,
           builder: (context, snapshot) {
@@ -65,13 +60,16 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                     InkWell(
                         onTap: () {
-                          setState(() {
-                            _hideAppbar = true;
-                          });
-                          _scrollController.animateTo(
-                              SizeConfig.safeBlockVertical * 100,
-                              duration: Duration(milliseconds: 800),
-                              curve: Curves.easeIn);
+                          if (!_hideAppbar) {
+                            setState(() {
+                              _hideAppbar = true;
+                            });
+                            // _animationController.forward();
+                            _scrollController.animateTo(
+                                SizeConfig.safeBlockVertical * 100,
+                                duration: Duration(milliseconds: 800),
+                                curve: Curves.easeIn);
+                          }
                         },
                         child: Container(
                             color: Theme.of(context).accentColor,
@@ -103,6 +101,7 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   void _animateBack() {
+    // _animationController.reverse();
     _scrollController.animateTo(SizeConfig.safeBlockVertical * 0,
         duration: Duration(milliseconds: 800), curve: Curves.easeIn);
     setState(() {

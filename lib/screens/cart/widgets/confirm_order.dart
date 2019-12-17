@@ -21,7 +21,6 @@ class ConfirmOrder extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Row(
-                  // crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
@@ -35,7 +34,6 @@ class ConfirmOrder extends StatelessWidget {
                   ],
                 ),
                 Container(
-                  // width: SizeConfig.safeBlockHorizontal * 100,
                   padding: const EdgeInsets.fromLTRB(18, 30, 18, 0),
                   alignment: AlignmentDirectional.bottomStart,
                   child: Column(
