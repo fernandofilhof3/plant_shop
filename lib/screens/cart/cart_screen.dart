@@ -64,7 +64,6 @@ class _CartScreenState extends State<CartScreen>
                             setState(() {
                               _hideAppbar = true;
                             });
-                            // _animationController.forward();
                             _scrollController.animateTo(
                                 SizeConfig.safeBlockVertical * 100,
                                 duration: Duration(milliseconds: 800),
@@ -101,7 +100,6 @@ class _CartScreenState extends State<CartScreen>
   }
 
   void _animateBack() {
-    // _animationController.reverse();
     _scrollController.animateTo(SizeConfig.safeBlockVertical * 0,
         duration: Duration(milliseconds: 800), curve: Curves.easeIn);
     setState(() {

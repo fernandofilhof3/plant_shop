@@ -100,6 +100,14 @@ class CartService {
 
   }
 
+  Future clearCart() async {
+    await Firestore.instance.collection('users').document(user.id).collection('cart').getDocuments().then((snapshot) {
+      for (DocumentSnapshot ds in snapshot.documents) {
+        ds.reference.delete();
+      }
+    }); 
+  }
+
   Future removeItem(CartProduct item) async{
     var success = await Firestore.instance.collection('users').document(user.id).collection('cart').document(item.id).delete().then((doc){return true;});
     return success;

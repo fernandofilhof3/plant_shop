@@ -4,7 +4,9 @@ import 'package:plant_shop/bloc/auth_bloc.dart';
 import 'package:plant_shop/bloc/cart_bloc.dart';
 import 'package:plant_shop/bloc/orders_bloc.dart';
 import 'package:plant_shop/bloc/product_bloc.dart';
+import 'package:plant_shop/screens/home/home_screen.dart';
 import 'package:plant_shop/screens/login/login_screen.dart';
+import 'package:plant_shop/screens/orders/success_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,6 +25,10 @@ class MyApp extends StatelessWidget {
         home: LoginScreen(),
         debugShowCheckedModeBanner: false,
         title: 'Plant Shop',
+        routes: <String, WidgetBuilder> {
+          '/home': (BuildContext context) => HomeScreen(),
+          '/success-screen': (BuildContext context) => SuccessScreen(),
+        },
         theme: ThemeData(
           fontFamily: 'Montserrat',
           primaryColor: Color.fromRGBO(34, 135, 77, 1),

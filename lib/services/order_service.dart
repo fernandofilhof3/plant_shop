@@ -3,9 +3,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:plant_shop/bloc/auth_bloc.dart';
 import 'package:plant_shop/models/order_model.dart';
 import 'package:plant_shop/models/users.model.dart';
+import 'package:plant_shop/services/cart_service.dart';
 
 class OrderService {
   List orders;
+  CartService cartService = CartService();
   
   User get user => BlocProvider.getBloc<AuthBloc>().getUser;
   
@@ -37,6 +39,7 @@ class OrderService {
           .then((doc) {
             success = true;
           });
+      await cartService.clearCart();
     } catch (e) {
       success = false;
     }

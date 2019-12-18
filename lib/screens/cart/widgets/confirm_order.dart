@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_shop/models/order_model.dart';
 import 'package:plant_shop/screens/cart/widgets/confirm_button.dart';
@@ -165,9 +168,11 @@ class _ConfirmOrderState extends State<ConfirmOrder> with SingleTickerProviderSt
   }
 
   Order createOrder() {
+    final date = DateTime.now();
     Order item = Order();
     item.price = widget.cartPrice +  widget.shippingPrice;
     item.status = 'PENDING';
+    item.date = date.day.toString() + '/' + date.month.toString() + '/' + date.year.toString();
     return item;
   }
 

@@ -1,10 +1,8 @@
-import 'dart:developer';
-
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_shop/bloc/orders_bloc.dart';
 import 'package:plant_shop/models/order_model.dart';
-import 'package:plant_shop/screens/home/home_screen.dart';
+import 'package:plant_shop/screens/orders/success_screen.dart';
 import 'package:plant_shop/shared/size_config.dart';
 
 class ConfirmButton extends StatelessWidget {
@@ -34,9 +32,7 @@ class ConfirmButton extends StatelessWidget {
             controller.forward();
             controller.addStatusListener((status) {
               if (status == AnimationStatus.completed) {
-                log('finish');
-                // Navigator.of(context).pushReplacement(
-                //     MaterialPageRoute(builder: (context) => HomeScreen()));
+                Navigator.of(context).pushNamed('/success-screen');
               }
             });
           } else {

@@ -35,7 +35,9 @@ class StaggerAnimation extends StatelessWidget {
               controller.addStatusListener((status) {
                 if (status == AnimationStatus.completed) {
                   Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                      MaterialPageRoute(
+                        settings: RouteSettings(name: "/home"),
+                        builder: (context) => HomeScreen()));
                 }
               });
             } else {
