@@ -73,60 +73,69 @@ class _CartProductCardState extends State<CartProductCard> {
                               TextStyle(fontSize: 15, color: Colors.grey[800]),
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                        Container(
-                          child: Text(
-                            'R\$ ${widget.product.itemPrice.toStringAsFixed(2)}',
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).accentColor),
-                          ),
-                        ),
-                          IconButton(
-                            onPressed: _product.amount > 1
-                                ? () async {
-                                    await cartBloc
-                                        .decrementItem(_product.id, _product.amount-1)
-                                        .then((doc) {
-                                      setState(() {
-                                        _product.amount = _product.amount -1;
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              child: Text(
+                                'R\$ ${widget.product.itemPrice.toStringAsFixed(2)}',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context).accentColor),
+                              ),
+                            ),
+                            SizedBox(width: SizeConfig.safeBlockHorizontal * 12,),
+                            Container(
+                              child: Row(
+                                children: <Widget>[
+                                  IconButton(
+                                    onPressed: _product.amount > 1
+                                        ? () async {
+                                            await cartBloc
+                                                .decrementItem(_product.id,
+                                                    _product.amount - 1)
+                                                .then((doc) {
+                                              setState(() {
+                                                _product.amount =
+                                                    _product.amount - 1;
+                                              });
+                                            });
+                                          }
+                                        : null,
+                                    color: Theme.of(context).accentColor,
+                                    icon: Icon(
+                                      Icons.remove,
+                                      size: 24,
+                                    ),
+                                  ),
+                                  Text(
+                                    _product.amount.toString(),
+                                    style: TextStyle(
+                                        color: Colors.grey[800],
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  IconButton(
+                                    onPressed: () async {
+                                      await cartBloc
+                                          .addItem(_product)
+                                          .then((doc) {
+                                        setState(() {
+                                          _product.amount++;
+                                        });
                                       });
-                                    });
-                                  }
-                                : null,
-                            color: Theme.of(context).accentColor,
-                            icon: Icon(
-                              Icons.remove,
-                              size: 24,
-                            ),
-                          ),
-                          Text(
-                            _product.amount.toString(),
-                            style: TextStyle(
-                                color: Colors.grey[800],
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          IconButton(
-                            onPressed: () async {
-                              await cartBloc
-                                  .addItem(_product)
-                                  .then((doc) {
-                                setState(() {
-                                  _product.amount++;
-                                });
-                              });
-                            },
-                            color: Theme.of(context).accentColor,
-                            icon: Icon(
-                              Icons.add,
-                              size: 24,
-                            ),
-                          ),
-                        ],
-                      ),
+                                    },
+                                    color: Theme.of(context).accentColor,
+                                    icon: Icon(
+                                      Icons.add,
+                                      size: 24,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       ],
                     ),
                   ],
