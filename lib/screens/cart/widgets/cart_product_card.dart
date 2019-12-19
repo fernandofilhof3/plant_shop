@@ -79,12 +79,12 @@ class _CartProductCardState extends State<CartProductCard> {
                               child: Text(
                                 'R\$ ${widget.product.itemPrice.toStringAsFixed(2)}',
                                 style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                     color: Theme.of(context).accentColor),
                               ),
                             ),
-                            SizedBox(width: SizeConfig.safeBlockHorizontal * 12,),
+                            SizedBox(width: SizeConfig.safeBlockHorizontal * 9,),
                             Container(
                               child: Row(
                                 children: <Widget>[

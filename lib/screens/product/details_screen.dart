@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plant_shop/models/product_model.dart';
+import 'package:plant_shop/screens/cart/cart_screen.dart';
 import 'package:plant_shop/screens/product/widgets/cart_button.dart';
 import 'package:plant_shop/shared/cart_info_button.dart';
 import 'package:plant_shop/shared/size_config.dart';
@@ -31,7 +32,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    
+
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
@@ -183,22 +184,28 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   void _onSuccess() {
     _scaffoldKey.currentState.showSnackBar(SnackBar(
-      content: Container(
-        height: SizeConfig.safeBlockVertical * 5,
-        width: SizeConfig.safeBlockHorizontal * 100,
-        alignment: AlignmentDirectional.center,
-        child: Text(
-          'Produto adicionado ao carrinho',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              fontSize: 18,
-              letterSpacing: .8,
-              fontWeight: FontWeight.bold,
-              color: Colors.white),
+      content: InkWell(
+        onTap: () {
+          Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => CartScreen()));
+        },
+        child: Container(
+          height: SizeConfig.safeBlockVertical * 5,
+          width: SizeConfig.safeBlockHorizontal * 100,
+          alignment: AlignmentDirectional.center,
+          child: Text(
+            'Produto adicionado ao carrinho',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 18,
+                letterSpacing: .8,
+                fontWeight: FontWeight.bold,
+                color: Colors.white),
+          ),
         ),
       ),
       backgroundColor: Color.fromRGBO(0, 146, 245, 1),
-      duration: Duration(milliseconds: 1500),
+      duration: Duration(milliseconds: 1200),
     ));
   }
 }
