@@ -7,12 +7,23 @@ import 'package:plant_shop/screens/product/widgets/product_card.dart';
 import 'package:plant_shop/shared/empty-view.dart';
 import 'package:plant_shop/shared/size_config.dart';
 
-class ProductScreen extends StatelessWidget {
+class ProductScreen extends StatefulWidget {
+  @override
+  _ProductScreenState createState() => _ProductScreenState();
+}
+
+class _ProductScreenState extends State<ProductScreen> {
   final pvController = PageController(
     viewportFraction: 0.85,
     keepPage: true,
   );
+
   ProductBloc get productBloc => BlocProvider.getBloc<ProductBloc>();
+    @override
+  void initState() {
+    super.initState();
+    productBloc.search.add('');
+  }
 
   @override
   Widget build(BuildContext context) {

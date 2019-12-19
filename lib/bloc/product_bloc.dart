@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:plant_shop/models/product_model.dart';
 import 'package:plant_shop/services/plant_service.dart';
@@ -8,8 +9,8 @@ class ProductBloc implements BlocBase {
 
   List<Product> products;
 
-  final StreamController<List<Product>> _productController = StreamController<List<Product>>();
-  Stream get getProduct => _productController.stream;
+  final StreamController<List<Product>> _productController = StreamController<List<Product>>.broadcast();
+  Stream get getProduct => _productController.stream.asBroadcastStream();
   
   final StreamController<String> _searchController = StreamController<String>();
   Sink get search => _searchController.sink;
@@ -32,6 +33,11 @@ class ProductBloc implements BlocBase {
         _productController.sink.add(products);
   }
 
+  closeControllers() {
+    _productController.close();
+    _searchController.close();
+  }
+
   @override
   void addListener(listener) {
     // TODO: implement addListener
@@ -39,6 +45,7 @@ class ProductBloc implements BlocBase {
 
   @override
   void dispose() {
+    log('dispose stream');
     // TODO: implement dispose
     _productController.close();
     _searchController.close();

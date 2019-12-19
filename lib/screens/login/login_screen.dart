@@ -2,7 +2,6 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:plant_shop/bloc/auth_bloc.dart';
-import 'package:plant_shop/bloc/product_bloc.dart';
 import 'package:plant_shop/screens/login/widgets/form_container.dart';
 import 'package:plant_shop/screens/login/widgets/signup_button.dart';
 import 'package:plant_shop/screens/login/widgets/stagger_animation.dart';
@@ -22,13 +21,13 @@ class _LoginScreenState extends State<LoginScreen>
 
   String user;
   String password;
+  
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(
         vsync: this, duration: Duration(milliseconds: 1800));
-    BlocProvider.getBloc<ProductBloc>().search.add('');
   }
 
   @override
