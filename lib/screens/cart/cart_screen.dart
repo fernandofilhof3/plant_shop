@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_shop/bloc/cart_bloc.dart';
@@ -49,7 +51,9 @@ class _CartScreenState extends State<CartScreen>
                           width: SizeConfig.safeBlockHorizontal * 93,
                           child: ListView.builder(
                             itemBuilder: (context, index) {
-                              _products.add(snapshot.data[index]);
+                              if (!_products.any((item) => item.id == snapshot.data[index].id)) {
+                                _products.add(snapshot.data[index]);
+                              }
                               return CartProductCard(
                                 product: snapshot.data[index],
                                 onSuccess: _onSuccess,

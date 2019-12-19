@@ -19,7 +19,7 @@ class CartService {
         .collection('cart')
         .getDocuments();
     productList =
-        query.documents.map((item) => CartProduct.fromDocument(item)).toList();
+        query.documents.map((item) => CartProduct.fromDocument(item.data)).toList();
     return productList;
   }
 
@@ -29,7 +29,7 @@ class CartService {
         .document(user.id)
         .collection('cart')
         .getDocuments();
-    var x = query.documents.map((item) => CartProduct.fromDocument(item)).toList();
+    var x = query.documents.map((item) => CartProduct.fromDocument(item.data)).toList();
     total = 0;
     totalValue = 0;
     x.forEach((item) {

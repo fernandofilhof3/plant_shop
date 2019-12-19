@@ -179,7 +179,6 @@ class _ConfirmOrderState extends State<ConfirmOrder> with SingleTickerProviderSt
   }
 
    void _onError() {
-     log('Error');
     // _scaffoldKey.currentState.showSnackBar(SnackBar(
     //   content: Text(
     //     'Ocorreu um problema.',

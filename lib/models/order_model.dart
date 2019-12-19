@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:plant_shop/models/cart_product_model.dart';
 
 class Order {
@@ -10,12 +9,13 @@ class Order {
 
   Order({this.id, this.price, this.status});
 
-  Order.fromDocument(DocumentSnapshot snapshot){
-    id = snapshot.documentID;
-    price = snapshot.data['price'].toDouble();
-    date = snapshot.data['date'];
-    status = snapshot.data['status'];
-    products = snapshot.data['product'];
+  Order.fromDocument(Map<String, dynamic> data, String documentId){
+    id = documentId;
+    price = data['price'].toDouble();
+    date = data['date'];
+    status = data['status'];
+    products = [];
+    data['product'].forEach((product) => products.add(CartProduct.fromDocument(product)));
   }
 
   Map<String, dynamic> toMap(){

@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class CartProduct {
   String id;
   String name;
@@ -10,13 +8,13 @@ class CartProduct {
 
   CartProduct({this.id, this.name, this.image, this.itemPrice, this.category});
 
-  CartProduct.fromDocument(DocumentSnapshot snapshot){
-    id = snapshot.data['id'];
-    name = snapshot.data['name'];
-    image = snapshot.data['image'];
-    category = snapshot.data['category'];
-    amount = snapshot.data['amount'];
-    itemPrice = snapshot.data['itemPrice'].toDouble();
+  CartProduct.fromDocument(dynamic data){
+    id = data['id'];
+    name = data['name'];
+    image = data['image'];
+    category = data['category'];
+    amount = data['amount'];
+    itemPrice = data['itemPrice'].toDouble();
   }
 
   Map<String, dynamic> toMap(){

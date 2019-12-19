@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:plant_shop/models/order_model.dart';
@@ -14,7 +15,7 @@ class OrderBloc implements BlocBase {
   }
 
   final StreamController<List> _cartController = StreamController<List>.broadcast();
-  Stream get cartList => _cartController.stream.asBroadcastStream();
+  Stream get orderList => _cartController.stream.asBroadcastStream();
 
   Future getOrders() async {
     _cartController.add(null);

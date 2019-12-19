@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plant_shop/models/cart_product_model.dart';
 import 'package:plant_shop/shared/size_config.dart';
 
 class OrderCards extends StatelessWidget {
@@ -6,14 +7,15 @@ class OrderCards extends StatelessWidget {
   final String id;
   final String date;
   final String status;
-  final int amount;
+  final List<CartProduct> products;
+  int amount = 0;
 
-  OrderCards(this.totalValue, this.date, this.id, this.status, this.amount);
+  OrderCards({this.totalValue, this.date, this.id, this.status, this.products});
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-
+    products.forEach((item) => amount += item.amount);
     return  Container(
         margin: EdgeInsets.only(bottom: 8),
         width: SizeConfig.safeBlockHorizontal * 75,

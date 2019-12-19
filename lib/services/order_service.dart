@@ -21,11 +21,12 @@ class OrderService {
           .collection('orders')
           .getDocuments();
       orders = query.documents
-          .map((item) => Order.fromDocument(item))
+          .map((item) => Order.fromDocument(item.data, item.documentID))
           .toList();
       return orders;
     } catch (e) {
-      return false;
+      log(e.toString());
+      return null;
     }
   }
 
@@ -43,7 +44,6 @@ class OrderService {
           });
       await cartService.clearCart();
     } catch (e) {
-      log(e.toString());
       success = false;
     }
     return success;
