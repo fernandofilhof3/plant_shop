@@ -15,7 +15,6 @@ class DrawerTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(controller.page.toString());
     return Material(
       child: InkWell(
         onTap: () {

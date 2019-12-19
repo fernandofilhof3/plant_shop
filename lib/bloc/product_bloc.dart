@@ -45,7 +45,6 @@ class ProductBloc implements BlocBase {
 
   @override
   void dispose() {
-    log('dispose stream');
     // TODO: implement dispose
     _productController.close();
     _searchController.close();

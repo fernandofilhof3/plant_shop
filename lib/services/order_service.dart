@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:plant_shop/bloc/auth_bloc.dart';
@@ -41,6 +43,7 @@ class OrderService {
           });
       await cartService.clearCart();
     } catch (e) {
+      log(e.toString());
       success = false;
     }
     return success;

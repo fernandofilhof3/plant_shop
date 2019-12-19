@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:plant_shop/models/cart_product_model.dart';
 
 class Order {
   String id;
   String date;
   double price;
   String status;
+  List<CartProduct> products;
 
   Order({this.id, this.price, this.status});
 
@@ -13,6 +15,7 @@ class Order {
     price = snapshot.data['price'].toDouble();
     date = snapshot.data['date'];
     status = snapshot.data['status'];
+    products = snapshot.data['product'];
   }
 
   Map<String, dynamic> toMap(){
@@ -20,7 +23,8 @@ class Order {
       'id': id,
       'price': price,
       'date': date,
-      'status': status
+      'status': status,
+      'product': products.map((product) => product.toMap()).toList()
     };
   }
 

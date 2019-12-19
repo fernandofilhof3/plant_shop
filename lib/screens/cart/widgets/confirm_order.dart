@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:plant_shop/models/cart_product_model.dart';
 import 'package:plant_shop/models/order_model.dart';
 import 'package:plant_shop/screens/cart/widgets/confirm_button.dart';
 import 'package:plant_shop/shared/size_config.dart';
@@ -11,9 +12,9 @@ class ConfirmOrder extends StatefulWidget {
   final Function animateBack;
   final double cartPrice;
   final double shippingPrice;
+  final List<CartProduct> product;
 
-
-  ConfirmOrder({this.animateBack, this.cartPrice, this.shippingPrice});
+  ConfirmOrder({this.animateBack, this.cartPrice, this.shippingPrice, this.product});
 
   @override
   _ConfirmOrderState createState() => _ConfirmOrderState();
@@ -171,21 +172,23 @@ class _ConfirmOrderState extends State<ConfirmOrder> with SingleTickerProviderSt
     final date = DateTime.now();
     Order item = Order();
     item.price = widget.cartPrice +  widget.shippingPrice;
+    item.products = widget.product;
     item.status = 'PENDING';
     item.date = date.day.toString() + '/' + date.month.toString() + '/' + date.year.toString();
     return item;
   }
 
    void _onError() {
-    _scaffoldKey.currentState.showSnackBar(SnackBar(
-      content: Text(
-        'Ocorreu um problema.',
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: 18, letterSpacing: .8, fontWeight: FontWeight.bold),
-      ),
-      backgroundColor: Colors.redAccent,
-      duration: Duration(milliseconds: 2200),
-    ));
+     log('Error');
+    // _scaffoldKey.currentState.showSnackBar(SnackBar(
+    //   content: Text(
+    //     'Ocorreu um problema.',
+    //     textAlign: TextAlign.center,
+    //     style: TextStyle(
+    //         fontSize: 18, letterSpacing: .8, fontWeight: FontWeight.bold),
+    //   ),
+    //   backgroundColor: Colors.redAccent,
+    //   duration: Duration(milliseconds: 2200),
+    // ));
   }
 }

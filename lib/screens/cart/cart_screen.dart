@@ -1,6 +1,7 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_shop/bloc/cart_bloc.dart';
+import 'package:plant_shop/models/cart_product_model.dart';
 import 'package:plant_shop/screens/cart/widgets/cart_app_bar.dart';
 import 'package:plant_shop/screens/cart/widgets/cart_product_card.dart';
 import 'package:plant_shop/screens/cart/widgets/confirm_order.dart';
@@ -19,7 +20,7 @@ class _CartScreenState extends State<CartScreen>
   bool _hideAppbar = false;
 
   CartBloc get cartBloc => BlocProvider.getBloc<CartBloc>();
-
+  List<CartProduct> _products = List<CartProduct>();
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +49,7 @@ class _CartScreenState extends State<CartScreen>
                           width: SizeConfig.safeBlockHorizontal * 93,
                           child: ListView.builder(
                             itemBuilder: (context, index) {
+                              _products.add(snapshot.data[index]);
                               return CartProductCard(
                                 product: snapshot.data[index],
                                 onSuccess: _onSuccess,
@@ -76,6 +78,7 @@ class _CartScreenState extends State<CartScreen>
                               animateBack: _animateBack,
                               cartPrice: cartBloc.cartPrice,
                               shippingPrice: 7.99,
+                              product: _products,
                             )))
                   ],
                 );
