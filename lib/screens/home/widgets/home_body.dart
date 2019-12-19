@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plant_shop/screens/orders/orders_screen.dart';
 import 'package:plant_shop/shared/custom_drawer.dart';
 import 'package:plant_shop/tabs/home_tab.dart';
 
@@ -7,14 +8,22 @@ class HomeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return 
+    Container(
       child: SafeArea(
-        child: PageView(
+        child: 
+        PageView(
           controller: _pageController,
           physics: NeverScrollableScrollPhysics(),
           children: <Widget>[
             Scaffold(
               body: HomeTab(),
+              drawer: CustomDrawer(
+                pageController: _pageController
+              ),
+            ),
+            Scaffold(
+              body: OrdersScreen(),
               drawer: CustomDrawer(
                 pageController: _pageController
               ),

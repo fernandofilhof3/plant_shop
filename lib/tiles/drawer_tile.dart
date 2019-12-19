@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -13,9 +15,13 @@ class DrawerTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log(controller.page.toString());
     return Material(
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).pop();
+          controller.jumpToPage(page);
+        },
         child: Container(
           padding: EdgeInsets.only(left: 12),
           height: 50,

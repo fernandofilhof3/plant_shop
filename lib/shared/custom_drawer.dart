@@ -73,9 +73,8 @@ class CustomDrawer extends StatelessWidget {
               ),
               DrawerTile(
                 controller: pageController,
-                icon: Icons.shopping_basket,
                 page: 1,
-                text: 'Pedidos',
+                text: 'Pedidoss',
                 image: 'images/shipped.svg',
               ),
             ],

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,7 +14,6 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   CartBloc get cartBloc => BlocProvider.getBloc<CartBloc>();
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -91,7 +92,8 @@ class _HomeTabState extends State<HomeTab> {
                 ]),
               ],
             ),
-            body: ProductScreen()),
+            body: ProductScreen()
+            ),
       ],
     );
   }
