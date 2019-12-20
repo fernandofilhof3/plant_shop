@@ -108,14 +108,17 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 SizedBox(
                                   height: 35,
                                 ),
-                                CartButton(
-                                  color: Colors.grey[900],
-                                  height: 60,
-                                  width: 60,
-                                  iconColor: Colors.white,
-                                  image: 'images/cart-add.svg',
-                                  product: _product,
-                                  onSuccess: _onSuccess,
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 12),
+                                  child: CartButton(
+                                    color: Colors.grey[900],
+                                    height: SizeConfig.safeBlockHorizontal * 18,
+                                    width: SizeConfig.safeBlockHorizontal * 18,
+                                    iconColor: Colors.white,
+                                    image: 'images/cart-add.svg',
+                                    product: _product,
+                                    onSuccess: _onSuccess,
+                                  ),
                                 )
                               ],
                             )),

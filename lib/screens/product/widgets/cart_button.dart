@@ -14,9 +14,15 @@ class CartButton extends StatelessWidget {
   final Function onSuccess;
 
   final Product product;
-  
 
-  const CartButton({this.width, this.height, this.image, this.color, this.iconColor, this.product, this.onSuccess});
+  const CartButton(
+      {this.width,
+      this.height,
+      this.image,
+      this.color,
+      this.iconColor,
+      this.product,
+      this.onSuccess});
   CartBloc get cartBloc => BlocProvider.getBloc<CartBloc>();
 
   @override
@@ -24,28 +30,30 @@ class CartButton extends StatelessWidget {
     return Container(
         width: width,
         height: height,
-        padding: EdgeInsets.all(10),
         alignment: AlignmentDirectional.bottomStart,
-        decoration:
-            BoxDecoration(color: color, shape: BoxShape.circle),
-        child: InkWell(
-          onTap: product != null ? () async {
-          
-           await cartBloc.addItem(productToCartProduct());
-            if (cartBloc.isAdditioned) {
-              onSuccess();
-            }
-
-          } : null,
-          child: SvgPicture.asset(
-            image,
-            color: iconColor,
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        child: Center(
+          child: MaterialButton(
+            shape: CircleBorder(
+              side: BorderSide(color: Colors.transparent)
+            ),
+            onPressed: product != null
+                ? () async {
+                    await cartBloc.addItem(productToCartProduct());
+                    if (cartBloc.isAdditioned) {
+                      onSuccess();
+                    }
+                  }
+                : null,
+            child: SvgPicture.asset(
+              image,
+              color: iconColor,
+            ),
           ),
-        )
-        );
+        ));
   }
 
-  CartProduct productToCartProduct(){
+  CartProduct productToCartProduct() {
     CartProduct item = CartProduct();
     item.id = product.id;
     item.image = product.image;
