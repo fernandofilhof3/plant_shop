@@ -1,5 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:plant_shop/models/cart_product_model.dart';
+import 'package:plant_shop/models/order_model.dart';
+import 'package:plant_shop/screens/orders/order_details.dart';
 import 'package:plant_shop/shared/size_config.dart';
 
 class OrderCards extends StatelessWidget {
@@ -7,10 +11,11 @@ class OrderCards extends StatelessWidget {
   final String id;
   final String date;
   final String status;
+  final Order order;
   final List<CartProduct> products;
   int amount = 0;
 
-  OrderCards({this.totalValue, this.date, this.id, this.status, this.products});
+  OrderCards({this.totalValue, this.date, this.id, this.status, this.products, this.order});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +30,17 @@ class OrderCards extends StatelessWidget {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10))),
             child: MaterialButton(
-              onPressed: (){},
+              onPressed: (){
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => 
+                    OrderDetails(
+                  products: products,
+                  order: order
+                )
+                  )
+                );
+              },
               child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[

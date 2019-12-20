@@ -56,6 +56,7 @@ class OrdersScreen extends StatelessWidget {
                         status: snapshot.data[index].status,
                         totalValue: snapshot.data[index].price,
                         products: snapshot.data[index].products,
+                        order: snapshot.data[index],
                       );
                     },
                     itemCount: snapshot.data.length,
