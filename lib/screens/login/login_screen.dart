@@ -75,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen>
                           style: TextStyle(
                               fontSize: 38,
                               letterSpacing: 0.8,
-                              color: Colors.grey[850]),
+                              color: Colors.grey[800]),
                         ),
                       ],
                     ),
@@ -84,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen>
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                          top: SizeConfig.safeBlockVertical * 9),
+                          top: SizeConfig.safeBlockVertical * 7),
                       child: SignUpButton(),
                     )
                   ],
