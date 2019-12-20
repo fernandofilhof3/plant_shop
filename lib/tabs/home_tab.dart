@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -14,6 +12,13 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   CartBloc get cartBloc => BlocProvider.getBloc<CartBloc>();
+
+    @override
+  void initState() {
+    super.initState();
+    cartBloc.getCartAmount();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -26,7 +31,6 @@ class _HomeTabState extends State<HomeTab> {
               leading: Container(
                 margin: EdgeInsets.only(top: 8),
                 child: MaterialButton(
-                    padding: EdgeInsets.all(1),
                     shape: CircleBorder(
                         side: BorderSide(color: Colors.transparent)),
                     onPressed: () {

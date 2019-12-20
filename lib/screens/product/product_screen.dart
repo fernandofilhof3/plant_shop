@@ -19,7 +19,7 @@ class _ProductScreenState extends State<ProductScreen> {
   );
 
   ProductBloc get productBloc => BlocProvider.getBloc<ProductBloc>();
-    @override
+  @override
   void initState() {
     super.initState();
     productBloc.search.add('');
@@ -30,20 +30,27 @@ class _ProductScreenState extends State<ProductScreen> {
     SizeConfig().init(context);
     return Container(
       width: SizeConfig.safeBlockHorizontal * 100,
-      height: SizeConfig.safeBlockVertical * 100,
+      height: SizeConfig.safeBlockVertical * 90,
       margin: EdgeInsets.only(top: 10),
       child: Column(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(left: 12, bottom: 20),
+            height: SizeConfig.safeBlockVertical * 7,
+            padding: EdgeInsets.only(left: 12, bottom: 12),
             alignment: Alignment.centerLeft,
             child: Text(
               'Plant Shop',
               textAlign: TextAlign.right,
-              style: TextStyle(fontSize: 32, fontWeight: FontWeight.w500),
+              style: TextStyle(
+                fontSize: 26,
+                letterSpacing: 0.8,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
-          SizedBox(height: 32, child: CategoryButton()),
+          Container(
+              height: SizeConfig.safeBlockVertical * 5,
+              child: CategoryButton()),
           Container(
             width: SizeConfig.safeBlockHorizontal * 100,
             height: SizeConfig.safeBlockVertical * 72,
@@ -71,16 +78,15 @@ class _ProductScreenState extends State<ProductScreen> {
                   }
                 } else {
                   return Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      SizedBox(
-                        width: SizeConfig.safeBlockHorizontal * 30,
-                        height: SizeConfig.safeBlockHorizontal * 30,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 3,
-                        )),
-                    ]
-                  );
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        SizedBox(
+                            width: SizeConfig.safeBlockHorizontal * 30,
+                            height: SizeConfig.safeBlockHorizontal * 30,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 3,
+                            )),
+                      ]);
                 }
               },
             ),

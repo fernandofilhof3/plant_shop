@@ -24,9 +24,7 @@ class StaggerAnimation extends StatelessWidget {
 
   Widget _buildAnimation(BuildContext context, Widget child) {
     SizeConfig().init(context);
-    return Padding(
-      padding: EdgeInsets.only(bottom: 0),
-      child: InkWell(
+    return InkWell(
           onTap: () async {
             controller.forward();
             await onSubmited();
@@ -66,8 +64,8 @@ class StaggerAnimation extends StatelessWidget {
                           ? BoxShape.circle
                           : BoxShape.rectangle,
                     )),
-          )),
-    );
+          ));
+    // );
   }
 
   Widget _buildInside(BuildContext context) {

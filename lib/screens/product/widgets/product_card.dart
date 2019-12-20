@@ -32,7 +32,7 @@ class ProductCard extends StatelessWidget {
                     )));
               },
               child: Container(
-                  height: SizeConfig.safeBlockVertical * 80,
+                  height: SizeConfig.safeBlockVertical * 75,
                   width: SizeConfig.safeBlockHorizontal * 80,
                   decoration: BoxDecoration(
                       color: Theme.of(context).accentColor,

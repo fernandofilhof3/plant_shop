@@ -21,7 +21,6 @@ class _LoginScreenState extends State<LoginScreen>
 
   String user;
   String password;
-  
 
   @override
   void initState() {
@@ -53,35 +52,45 @@ class _LoginScreenState extends State<LoginScreen>
               children: <Widget>[
                 Column(
                   children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(top: 20, bottom: 10),
-                      height: SizeConfig.safeBlockHorizontal * 20,
-                      child: SvgPicture.asset(
-                        'images/leaves.svg',
-                        semanticsLabel: 'Botanicah',
-                        width: 120,
-                        height: 120,
-                      ),
-                    ),
-                    Text(
-                      'Plant Shop',
-                      style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.w500,
-                          color: Theme.of(context).accentColor),
+                    Column(
+                      children: <Widget>[
+                        Container(
+                            padding: EdgeInsets.only(left: 4),
+                            width: SizeConfig.safeBlockHorizontal * 33,
+                            height: SizeConfig.safeBlockVertical * 33,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Theme.of(context).accentColor,
+                            ),
+                            child: Center(
+                              child: SvgPicture.asset(
+                                'images/plant-logo.svg',
+                                color: Colors.white,
+                                width: SizeConfig.safeBlockHorizontal * 14,
+                                height: SizeConfig.safeBlockVertical * 14,
+                              ),
+                            )),
+                        Text(
+                          'Plant Shop',
+                          style: TextStyle(
+                              fontSize: 38,
+                              letterSpacing: 0.8,
+                              color: Colors.grey[850]),
+                        ),
+                      ],
                     ),
                     FormContainer(
                       getCredentials: getEmailAndPassword,
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                          top: SizeConfig.safeBlockVertical * 5),
+                          top: SizeConfig.safeBlockVertical * 9),
                       child: SignUpButton(),
                     )
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 50),
+                  padding: EdgeInsets.only(bottom: SizeConfig.safeBlockVertical * 8),
                   child: StaggerAnimation(
                     controller: _controller.view,
                     onSubmited: singIn,

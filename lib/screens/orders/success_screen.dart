@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:plant_shop/screens/home/home_screen.dart';
 import 'package:plant_shop/shared/size_config.dart';
 
 class SuccessScreen extends StatelessWidget {

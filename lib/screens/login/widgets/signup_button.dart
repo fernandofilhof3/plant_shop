@@ -10,10 +10,10 @@ class SignUpButton extends StatelessWidget {
         textAlign: TextAlign.center,
         overflow: TextOverflow.ellipsis,
         style: TextStyle(
-          fontSize: 14,
+          fontSize: 15,
           color: Colors.grey[900],
-          letterSpacing: 0.5,
-          fontWeight: FontWeight.w300
+          letterSpacing: 0.8,
+          // fontWeight: FontWeight.bold
         ),
       ),
     );

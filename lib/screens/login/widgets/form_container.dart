@@ -28,8 +28,7 @@ class _FormContainerState extends State<FormContainer> {
 
     return Container(
       width: SizeConfig.safeBlockHorizontal * 80,
-      height: SizeConfig.safeBlockVertical * 55,
-      margin: EdgeInsets.symmetric(horizontal: 40),
+      height: SizeConfig.safeBlockVertical * 42,
       alignment: AlignmentDirectional.center,
       child: Form(
         key: _formkey,
@@ -72,7 +71,7 @@ class _FormContainerState extends State<FormContainer> {
                       _emailController.text, _passwordController.text);
               },
             ),
-            SizedBox(height: 25,),
+            SizedBox(height: SizeConfig.safeBlockVertical * 3,),
             TextFormField(
               controller: _passwordController,
               style: TextStyle(

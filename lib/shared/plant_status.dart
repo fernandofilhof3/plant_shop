@@ -11,8 +11,8 @@ class PlantStatus extends StatelessWidget {
       children: <Widget>[
         Container(
           margin: EdgeInsets.only(top: 8, right: 20),
-          height: 40,
-          width: 40,
+          height: 38,
+          width: 38,
           padding: EdgeInsets.all(5),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4),
