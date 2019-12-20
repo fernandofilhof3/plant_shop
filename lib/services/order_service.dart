@@ -18,7 +18,7 @@ class OrderService {
       QuerySnapshot query = await Firestore.instance
           .collection('users')
           .document(user.id)
-          .collection('orders')
+          .collection('orders').orderBy('date', descending: true)
           .getDocuments();
       orders = query.documents
           .map((item) => Order.fromDocument(item.data, item.documentID))

@@ -70,7 +70,7 @@ class OrderDetails extends StatelessWidget {
                         order.id,
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 16,
+                          fontSize: 18,
                           letterSpacing: 0.8
                         ),
                       )
@@ -92,7 +92,7 @@ class OrderDetails extends StatelessWidget {
                         order.date,
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 16,
+                          fontSize: 18,
                           letterSpacing: 0.8
                         ),
                       )
@@ -115,7 +115,6 @@ class OrderDetails extends StatelessWidget {
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
-                          fontWeight: FontWeight.w500,
                           letterSpacing: 0.8
                         ),
                       )
@@ -138,7 +137,6 @@ class OrderDetails extends StatelessWidget {
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
-                          fontWeight: FontWeight.w500,
                           letterSpacing: 0.8
                         ),
                       )
