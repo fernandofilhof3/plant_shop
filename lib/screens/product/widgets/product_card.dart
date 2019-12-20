@@ -18,27 +18,28 @@ class ProductCard extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Card(
-            margin: EdgeInsets.only(top: 12),
+            elevation: 2.4,
+            margin: EdgeInsets.only(top: 8),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20))),
             child: InkWell(
               onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => DetailsScreen(
-                      heroTag: 'expand' + position.toString(),
-                      product: product,
-                      heroHeight: SizeConfig.safeBlockVertical * 50,
-                      heroWidth: SizeConfig.safeBlockHorizontal * 68,
-                    )));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => DetailsScreen(
+                          heroTag: 'expand' + position.toString(),
+                          product: product,
+                          heroHeight: SizeConfig.safeBlockVertical * 50,
+                          heroWidth: SizeConfig.safeBlockHorizontal * 68,
+                        )));
               },
               child: Container(
-                  height: SizeConfig.safeBlockVertical * 75,
+                  height: SizeConfig.safeBlockVertical * 70,
                   width: SizeConfig.safeBlockHorizontal * 80,
                   decoration: BoxDecoration(
                       color: Theme.of(context).accentColor,
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                      borderRadius: BorderRadius.all(Radius.circular(19))),
                   child: Padding(
-                    padding: EdgeInsets.all(15),
+                    padding: EdgeInsets.all(12),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -102,7 +103,9 @@ class ProductCard extends StatelessWidget {
                                   physics: NeverScrollableScrollPhysics(),
                                   scrollDirection: Axis.horizontal,
                                   itemBuilder: (context, index) {
-                                    return PlantStatus(status: product.requirements[index],);
+                                    return PlantStatus(
+                                      status: product.requirements[index],
+                                    );
                                   },
                                   itemCount: product.requirements.length,
                                 ),

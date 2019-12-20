@@ -53,7 +53,7 @@ class _ProductScreenState extends State<ProductScreen> {
               child: CategoryButton()),
           Container(
             width: SizeConfig.safeBlockHorizontal * 100,
-            height: SizeConfig.safeBlockVertical * 72,
+            height: SizeConfig.safeBlockVertical * 73,
             child: StreamBuilder(
               stream: BlocProvider.getBloc<ProductBloc>().getProduct,
               initialData: [],

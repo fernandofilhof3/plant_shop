@@ -48,7 +48,7 @@ class _CartScreenState extends State<CartScreen>
                       children: <Widget>[
                         Container(
                           height: SizeConfig.blockSizeVertical * 76,
-                          width: SizeConfig.safeBlockHorizontal * 93,
+                          width: SizeConfig.safeBlockHorizontal * 95,
                           child: ListView.builder(
                             itemBuilder: (context, index) {
                               if (!_products.any((item) => item.id == snapshot.data[index].id)) {
