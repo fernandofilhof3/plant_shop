@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:plant_shop/models/cart_product_model.dart';
 import 'package:plant_shop/models/order_model.dart';
@@ -13,7 +11,6 @@ class OrderDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    log(order.toString());
     return Scaffold(
       appBar: AppBar(
         title: Text(

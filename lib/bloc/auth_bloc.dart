@@ -37,9 +37,14 @@ User _user;
         email: email,
         pass: password
       );
+      log(_user.toString());
       _isLogged =  _user != null ? true : false;
       // _loginController.add(authService.islooged());
     }
+  }
+
+  Future<bool> logout() async{
+    return await authService.logout();
   }
 
   @override

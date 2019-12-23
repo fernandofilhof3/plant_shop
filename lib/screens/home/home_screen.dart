@@ -1,4 +1,6 @@
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:plant_shop/bloc/auth_bloc.dart';
 import 'package:plant_shop/screens/home/widgets/stagger_animation.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -36,7 +38,12 @@ class _HomeScreenState extends State<HomeScreen>
           child: Text('Não'),
         ),
         FlatButton(
-          onPressed: () => Navigator.of(context).pop(true),
+          onPressed: () async{
+            var result = await BlocProvider.getBloc<AuthBloc>().logout();
+            if(result){
+              Navigator.of(context).pop(true);
+            }
+          },
           child: Text('Sim'),
         ),
       ],

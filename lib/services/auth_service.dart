@@ -18,7 +18,7 @@ class AuthService {
       try {
       var authResult = await _auth.signInWithEmailAndPassword(email: email, password: pass);
       user = authResult.user;
-      _loadCurrentUser();
+      await _loadCurrentUser();
       return userData;
       } catch(e) {
         return null;
@@ -34,6 +34,18 @@ class AuthService {
           await Firestore.instance.collection('users').document(user.uid).get();
           userData = User.fromDocument(docUser);
       }
+    }
+  }
+
+  Future<bool> logout() async{
+    var success = false;
+    try {
+      await _auth.signOut().then((doc){
+       success = true;
+       });
+       return success;
+    } catch(e) {
+       return success;
     }
   }
 
