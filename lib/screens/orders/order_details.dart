@@ -25,7 +25,6 @@ class OrderDetails extends StatelessWidget {
       body: Container(
         width: SizeConfig.safeBlockHorizontal * 100,
         height: SizeConfig.safeBlockVertical * 100,
-        //  color: Theme.of(context).accentColor,
         child: Column(
           children: <Widget>[
 

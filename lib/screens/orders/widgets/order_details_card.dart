@@ -11,8 +11,8 @@ class OrderDetailsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Container(
-      margin: EdgeInsets.only(left: 12, right: 12, top: 8, bottom: 5),
-      width: SizeConfig.safeBlockHorizontal * 50,
+      padding: EdgeInsets.only(left: 12, right: 12),
+      width: SizeConfig.safeBlockHorizontal * 100,
       height: SizeConfig.safeBlockVertical * 20,
       child: Card(
         elevation: 2.4,
@@ -29,7 +29,6 @@ class OrderDetailsCard extends StatelessWidget {
                     Column(
                       children: <Widget>[
                         Container(
-                          padding: EdgeInsets.only(right: 5),
                           child: FadeInImage.memoryNetwork(
                             image: product.image,
                             height: 90,
@@ -55,7 +54,6 @@ class OrderDetailsCard extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          // margin: EdgeInsets.only(top: 4),
                           width: SizeConfig.safeBlockHorizontal * 60,
                           child: Text(
                            'Quantidade de itens: ' + product.amount.toString(),

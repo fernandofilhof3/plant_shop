@@ -28,7 +28,7 @@ class _CartProductCardState extends State<CartProductCard> {
     SizeConfig().init(context);
     return Container(
       margin: EdgeInsets.only(top: 12),
-      height: SizeConfig.safeBlockVertical * 18,
+      height: SizeConfig.safeBlockVertical * 20,
       decoration: BoxDecoration(
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.all(Radius.circular(15))),
@@ -37,12 +37,13 @@ class _CartProductCardState extends State<CartProductCard> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10))),
         child: Padding(
-          padding: const EdgeInsets.all(6),
+          padding: const EdgeInsets.all(0),
           child: Row(
             children: <Widget>[
               Container(
                 width: SizeConfig.safeBlockHorizontal * 17,
                 child: Container(
+                  padding: EdgeInsets.only(left: 4),
                   child: FadeInImage.memoryNetwork(
                     image: _product.image,
                     height: 80,
@@ -62,6 +63,7 @@ class _CartProductCardState extends State<CartProductCard> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Container(
+                              padding: EdgeInsets.only(top: 6, left: 4),
                               width: SizeConfig.safeBlockHorizontal * 60,
                               child: Text(
                                 _product.name,
@@ -72,16 +74,20 @@ class _CartProductCardState extends State<CartProductCard> {
                                     color: Colors.grey[800]),
                               ),
                             ),
-                            Text(
-                              _product.category,
-                              style: TextStyle(
-                                  fontSize: 15, color: Colors.grey[800]),
+                            Container(
+                              padding: EdgeInsets.only(top: 4, left: 4),
+                              child: Text(
+                                _product.category,
+                                style: TextStyle(
+                                    fontSize: 15, color: Colors.grey[800]),
+                              ),
                             ),
                           ],
                         ),
                         Container(
                             width: 38,
                             height: 38,
+                            margin: EdgeInsets.only(bottom: 8),
                             child: IconButton(
                               onPressed: () async {
                                 await cartBloc.removeItem(_product);
@@ -100,12 +106,15 @@ class _CartProductCardState extends State<CartProductCard> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text(
-                          'R\$ ${widget.product.itemPrice.toStringAsFixed(2)}',
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).accentColor),
+                        Container(
+                          padding: EdgeInsets.only(top: 4, left: 4),
+                          child: Text(
+                            'R\$ ${widget.product.itemPrice.toStringAsFixed(2)}',
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).accentColor),
+                          ),
                         ),
                         Row(
                           children: <Widget>[
