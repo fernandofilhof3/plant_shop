@@ -1,6 +1,9 @@
 # plant_shop
 
 Plant Shop it's my first study project about flutter.
+Plant Shop is a non-profit project.
+
+Some screens was inspired in  Plant Shop design by Julia Jakubiak. Know her work https://dribbble.com/shots/6158149-Plant-Shop
 
 ## Getting Started
 
