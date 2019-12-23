@@ -1,6 +1,6 @@
 # plant_shop
 
-A new Flutter project.
+Plant Shop it's my first study project about flutter.
 
 ## Getting Started
 
