@@ -24,7 +24,7 @@ class _FormContainerState extends State<FormContainer> {
 
   @override
   Widget build(BuildContext context) {
-  SizeConfig().init(context);
+    SizeConfig().init(context);
 
     return Container(
       width: SizeConfig.safeBlockHorizontal * 80,
@@ -46,8 +46,8 @@ class _FormContainerState extends State<FormContainer> {
                     borderRadius: BorderRadius.circular(25),
                     borderSide:
                         BorderSide(color: Theme.of(context).primaryColor)),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(25)),
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
                 hintText: 'E-mail',
                 hintStyle: TextStyle(color: Theme.of(context).primaryColor),
                 prefixIcon: Icon(
@@ -70,8 +70,14 @@ class _FormContainerState extends State<FormContainer> {
                   widget.getCredentials(
                       _emailController.text, _passwordController.text);
               },
+              onChanged: (email) {
+                widget.getCredentials(
+                    _emailController.text, _passwordController.text);
+              },
             ),
-            SizedBox(height: SizeConfig.safeBlockVertical * 3,),
+            SizedBox(
+              height: SizeConfig.safeBlockVertical * 3,
+            ),
             TextFormField(
               controller: _passwordController,
               style: TextStyle(
@@ -90,17 +96,16 @@ class _FormContainerState extends State<FormContainer> {
                     borderRadius: BorderRadius.circular(25),
                     borderSide:
                         BorderSide(color: Theme.of(context).primaryColor)),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(25)),
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
               ),
               obscureText: true,
               keyboardType: TextInputType.emailAddress,
               validator: (text) {
-                if (text.isEmpty){
+                if (text.isEmpty) {
                   _invalidPassword = true;
                   return 'Campo obrigatorio';
-                }
-                else if (text.length < 6){
+                } else if (text.length < 6) {
                   _invalidPassword = true;
                   return 'A senha deve conter no minimo 6 digitos';
                 } else {
@@ -111,6 +116,10 @@ class _FormContainerState extends State<FormContainer> {
                 if (_formkey.currentState.validate())
                   widget.getCredentials(
                       _emailController.text, _passwordController.text);
+              },
+              onChanged: (password) {
+                widget.getCredentials(
+                    _emailController.text, _passwordController.text);
               },
             ),
           ],
